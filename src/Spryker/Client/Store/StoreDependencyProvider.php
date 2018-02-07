@@ -5,25 +5,25 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Store;
+namespace Spryker\Client\Store;
 
+use Spryker\Client\Kernel\AbstractDependencyProvider;
+use Spryker\Client\Kernel\Container;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Shared\Store\Dependency\Adapter\StoreToKernelStoreAdapter;
-use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
-use Spryker\Zed\Kernel\Container;
 
-class StoreDependencyProvider extends AbstractBundleDependencyProvider
+class StoreDependencyProvider extends AbstractDependencyProvider
 {
     const STORE = 'STORE';
 
     /**
-     * @param \Spryker\Zed\Kernel\Container $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return \Spryker\Zed\Kernel\Container
+     * @return \Spryker\Client\Kernel\Container
      */
-    public function provideBusinessLayerDependencies(Container $container)
+    public function provideServiceLayerDependencies(Container $container)
     {
-        $container = parent::provideBusinessLayerDependencies($container);
+        $container = parent::provideServiceLayerDependencies($container);
 
         $container = $this->addStore($container);
 
@@ -31,9 +31,9 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @param \Spryker\Zed\Kernel\Container $container
+     * @param \Spryker\Client\Kernel\Container $container
      *
-     * @return \Spryker\Zed\Kernel\Container
+     * @return \Spryker\Client\Kernel\Container
      */
     protected function addStore(Container $container)
     {
