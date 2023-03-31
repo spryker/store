@@ -5,11 +5,10 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Shared\Store\Reader;
+namespace Spryker\Client\Store\Reader;
 
-/**
- * @deprecated Will be removed after dynamic multi-store is always enabled.
- */
+use Generated\Shared\Transfer\StoreTransfer;
+
 interface StoreReaderInterface
 {
     /**
@@ -17,5 +16,5 @@ interface StoreReaderInterface
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getStoreByName($storeName);
+    public function getStoreByName(string $storeName): StoreTransfer;
 }
