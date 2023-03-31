@@ -5,21 +5,23 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Store\Persistence\Propel\Mapper;
+namespace Spryker\Zed\Store\Business\Expander;
 
 use Generated\Shared\Transfer\StoreTransfer;
-use Orm\Zed\Store\Persistence\SpyStore;
 
-class StoreMapper
+interface StoreExpanderInterface
 {
     /**
-     * @param \Orm\Zed\Store\Persistence\SpyStore $storeEntity
      * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function mapStoreEntityToStoreTransfer(SpyStore $storeEntity, StoreTransfer $storeTransfer): StoreTransfer
-    {
-        return $storeTransfer->fromArray($storeEntity->toArray(), true);
-    }
+    public function expandStore(StoreTransfer $storeTransfer): StoreTransfer;
+
+    /**
+     * @param array<\Generated\Shared\Transfer\StoreTransfer> $storeTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\StoreTransfer>
+     */
+    public function expandStores(array $storeTransfers): array;
 }
