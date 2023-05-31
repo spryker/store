@@ -9,6 +9,7 @@ namespace Spryker\Zed\Store\Business\Expander;
 
 use Generated\Shared\Transfer\AccessTokenRequestOptionsTransfer;
 use Generated\Shared\Transfer\AccessTokenRequestTransfer;
+use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Store\Business\Model\StoreReaderInterface;
 
 class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreReferenceAccessTokenRequestExpanderInterface
@@ -27,10 +28,10 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
      * @param \Spryker\Zed\Store\Business\Model\StoreReaderInterface $storeReader
      * @param string $storeName
      */
-    public function __construct(StoreReaderInterface $storeReader, string $storeName)
+    public function __construct()
     {
-        $this->storeReader = $storeReader;
-        $this->storeName = $storeName;
+        //$this->storeReader = $storeReader;
+        //$this->storeName = $storeName;
     }
 
     /**
@@ -40,11 +41,14 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
      */
     public function expand(AccessTokenRequestTransfer $accessTokenRequestTransfer): AccessTokenRequestTransfer
     {
+        /*
         if ($this->isStoreReferenceInOptions($accessTokenRequestTransfer)) {
             return $accessTokenRequestTransfer;
         }
 
         $storeTransfer = $this->storeReader->getStoreByName($this->storeName);
+        */
+        $storeTransfer = (new StoreTransfer())->setStoreReference('AOP_Demo_Testing-DE');
 
         $accessTokenRequestOptionsTransfer = $accessTokenRequestTransfer->getAccessTokenRequestOptions();
         if ($accessTokenRequestOptionsTransfer === null) {
