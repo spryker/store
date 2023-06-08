@@ -9,7 +9,6 @@ namespace Spryker\Zed\Store\Business\Expander;
 
 use Generated\Shared\Transfer\AccessTokenRequestOptionsTransfer;
 use Generated\Shared\Transfer\AccessTokenRequestTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Store\Business\Model\StoreReaderInterface;
 
 class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreReferenceAccessTokenRequestExpanderInterface
@@ -28,7 +27,7 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
      * @param \Spryker\Zed\Store\Business\Model\StoreReaderInterface $storeReader
      * @param string $storeName
      */
-    public function __construct()
+    public function __construct(StoreReaderInterface $storeReader, string $storeName)
     {
         $this->storeReader = $storeReader;
         $this->storeName = $storeName;
