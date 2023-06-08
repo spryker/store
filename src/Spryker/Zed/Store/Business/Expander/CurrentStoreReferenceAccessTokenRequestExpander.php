@@ -30,8 +30,8 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
      */
     public function __construct()
     {
-        //$this->storeReader = $storeReader;
-        //$this->storeName = $storeName;
+        $this->storeReader = $storeReader;
+        $this->storeName = $storeName;
     }
 
     /**
@@ -41,14 +41,11 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
      */
     public function expand(AccessTokenRequestTransfer $accessTokenRequestTransfer): AccessTokenRequestTransfer
     {
-        /*
         if ($this->isStoreReferenceInOptions($accessTokenRequestTransfer)) {
             return $accessTokenRequestTransfer;
         }
 
         $storeTransfer = $this->storeReader->getStoreByName($this->storeName);
-        */
-        $storeTransfer = (new StoreTransfer())->setStoreReference('AOP_Demo_Testing-DE');
 
         $accessTokenRequestOptionsTransfer = $accessTokenRequestTransfer->getAccessTokenRequestOptions();
         if ($accessTokenRequestOptionsTransfer === null) {

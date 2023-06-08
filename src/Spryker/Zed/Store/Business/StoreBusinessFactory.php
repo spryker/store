@@ -263,8 +263,8 @@ class StoreBusinessFactory extends AbstractBusinessFactory
     public function createStoreReferenceAccessTokenRequestExpander(): CurrentStoreReferenceAccessTokenRequestExpanderInterface
     {
         return new CurrentStoreReferenceAccessTokenRequestExpander(
-            //$this->createStoreReader(),
-            //$this->getCurrentStore(),
+            $this->createStoreReader(),
+            $this->getCurrentStore(),
         );
     }
 
