@@ -34,6 +34,10 @@ class CurrentStoreReferenceAccessTokenRequestExpanderPlugin extends AbstractPlug
      */
     public function expand(AccessTokenRequestTransfer $accessTokenRequestTransfer): AccessTokenRequestTransfer
     {
+        if ($this->getFacade()->isDynamicStoreEnabled()) {
+            return $accessTokenRequestTransfer;
+        }
+
         return $this->getFacade()->expandAccessTokenRequest($accessTokenRequestTransfer);
     }
 }

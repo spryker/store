@@ -31,6 +31,10 @@ class CurrentStoreReferenceMessageAttributeProviderPlugin extends AbstractPlugin
      */
     public function provideMessageAttributes(MessageAttributesTransfer $messageAttributesTransfer): MessageAttributesTransfer
     {
+        if ($this->getFacade()->isDynamicStoreEnabled()) {
+            return $messageAttributesTransfer;
+        }
+
         return $this->getFacade()->expandMessageAttributes($messageAttributesTransfer);
     }
 }
