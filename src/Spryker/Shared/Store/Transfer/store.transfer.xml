@@ -51,6 +51,7 @@
 
     <transfer name="StoreConditions">
         <property name="storeIds" type="array" singular="storeId"/>
+        <property name="withExpanders" type="bool"/>
     </transfer>
 
     <transfer name="Pagination">

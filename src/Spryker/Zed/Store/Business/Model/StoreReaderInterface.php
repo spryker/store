@@ -54,10 +54,11 @@ interface StoreReaderInterface
 
     /**
      * @param array<string> $storeNames
+     * @param bool $withExpanders
      *
      * @return array<\Generated\Shared\Transfer\StoreTransfer>
      */
-    public function getStoreTransfersByStoreNames(array $storeNames): array;
+    public function getStoreTransfersByStoreNames(array $storeNames, bool $withExpanders = true): array;
 
     /**
      * @deprecated Will be removed after dynamic multi-store is always enabled.

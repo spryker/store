@@ -184,10 +184,11 @@ class StoreReader implements StoreReaderInterface
 
     /**
      * @param array<string> $storeNames
+     * @param bool $withExpanders
      *
      * @return array<\Generated\Shared\Transfer\StoreTransfer>
      */
-    public function getStoreTransfersByStoreNames(array $storeNames): array
+    public function getStoreTransfersByStoreNames(array $storeNames, bool $withExpanders = true): array
     {
         $storeNames = array_unique($storeNames);
         $unresolvedStoreNames = $this->getNotCachedStoreNames($storeNames);
@@ -196,7 +197,9 @@ class StoreReader implements StoreReaderInterface
         if ($unresolvedStoreNames) {
             $storeTransfers = $this->storeRepository->getStoreTransfersByStoreNames($unresolvedStoreNames);
 
-            $storeTransfers = $this->storeExpander->expandStores($storeTransfers);
+            if ($withExpanders !== false) {
+                $storeTransfers = $this->storeExpander->expandStores($storeTransfers);
+            }
 
             $resolvedStoreTransfers = array_merge($resolvedStoreTransfers, $storeTransfers);
             $resolvedStoreTransfers = array_map(function (StoreTransfer $storeTransfer) {
@@ -298,9 +301,14 @@ class StoreReader implements StoreReaderInterface
      */
     public function getStoreCollection(StoreCriteriaTransfer $storeCriteriaTransfer): StoreCollectionTransfer
     {
+        $withExpanders = $storeCriteriaTransfer->getStoreConditions() && $storeCriteriaTransfer->getStoreConditions()->getWithExpanders() !== null
+            ? $storeCriteriaTransfer->getStoreConditions()->getWithExpanders()
+            : true;
+
         return (new StoreCollectionTransfer())->setStores(new ArrayObject(
             $this->getStoreTransfersByStoreNames(
                 $this->storeRepository->getStoreNamesByCriteria($storeCriteriaTransfer),
+                $withExpanders,
             ),
         ));
     }
