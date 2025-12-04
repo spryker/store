@@ -9,15 +9,12 @@ namespace Spryker\Client\Store\Reader;
 
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Client\Store\Reader\StoreReaderInterface as ClientStoreReaderInterface;
+use Spryker\Client\Store\StoreDependencyProvider;
+use Spryker\Service\Container\Attributes\Stack;
 use Spryker\Shared\Store\Reader\StoreReaderInterface;
 
 class StoreReader implements StoreReaderInterface, ClientStoreReaderInterface
 {
-    /**
-     * @var array<\Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface>
-     */
-    protected $storeExpanderPlugins;
-
     /**
      * @var array<\Generated\Shared\Transfer\StoreTransfer>
      */
@@ -26,9 +23,13 @@ class StoreReader implements StoreReaderInterface, ClientStoreReaderInterface
     /**
      * @param array<\Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface> $storeExpanderPlugins
      */
-    public function __construct(array $storeExpanderPlugins)
+    #[Stack(
+        dependencyProvider: StoreDependencyProvider::class,
+        dependencyProviderMethod: 'getStoreExpanderPlugins',
+        provideToArgument: 'storeExpanderPlugins',
+    )]
+    public function __construct(protected array $storeExpanderPlugins)
     {
-        $this->storeExpanderPlugins = $storeExpanderPlugins;
     }
 
     /**

@@ -1,0 +1,58 @@
+resource:
+    name: Stores
+    shortName: Store
+    description: Store management API for Backend operations
+
+    provider: Spryker\Glue\Store\Api\Backend\Provider\StoresBackendProvider
+    processor: Spryker\Glue\Store\Api\Backend\Processor\StoresBackendProcessor
+
+    paginationEnabled: true
+    paginationItemsPerPage: 10
+
+    operations:
+        - type: Post
+        - type: Get
+        - type: GetCollection
+        - type: Patch
+
+    properties:
+        name:
+            type: string
+            description: The unique store name identifier
+            writable: true
+            identifier: true
+
+        idStore:
+            type: integer
+            description: The internal store ID
+            writable: false
+            identifier: false
+
+        timezone:
+            type: string
+            description: The timezone for the store
+            required: false
+
+        availableLocaleIsoCodes:
+            type: array
+            description: List of available locale ISO codes
+
+        countries:
+            type: array
+            description: List of available countries
+
+        currencies:
+            type: array
+            description: List of available currencies
+
+        queuePools:
+            type: array
+            description: List of queue pool configurations
+
+        stores:
+            type: array
+            description: List of related stores
+
+        storesWithSharedPersistence:
+            type: array
+            description: List of stores with shared persistence

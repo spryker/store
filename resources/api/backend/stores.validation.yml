@@ -1,0 +1,115 @@
+post:
+    name:
+        - NotBlank:
+              message: Store name is required
+        - Length:
+              min: 2
+              max: 255
+              minMessage: Store name must be at least 2 characters
+              maxMessage: Store name cannot exceed 255 characters
+        - Regex:
+              pattern: '/^[A-Z][A-Z0-9_]*$/'
+              message: Store name must start with uppercase letter and contain only uppercase letters, numbers, and underscores
+
+    timezone:
+        - NotBlank:
+              message: Timezone is required
+        - Timezone:
+              message: Invalid timezone format
+
+    availableLocaleIsoCodes:
+        - Type:
+              type: array
+              message: Available locale ISO codes must be an array
+        - Count:
+              min: 1
+              minMessage: At least one locale ISO code is required
+
+    countries:
+        - Type:
+              type: array
+              message: Countries must be an array
+
+    currencies:
+        - Type:
+              type: array
+              message: Currencies must be an array
+
+    queuePools:
+        - Type:
+              type: array
+              message: Queue pools must be an array
+
+    stores:
+        - Type:
+              type: array
+              message: Stores must be an array
+
+    storesWithSharedPersistence:
+        - Type:
+              type: array
+              message: Stores with shared persistence must be an array
+
+patch:
+    name:
+        - Optional:
+              constraints:
+                  - Length:
+                        min: 2
+                        max: 255
+                        minMessage: Store name must be at least 2 characters
+                        maxMessage: Store name cannot exceed 255 characters
+                  - Regex:
+                        pattern: '/^[A-Z][A-Z0-9_]*$/'
+                        message: Store name must start with uppercase letter and contain only uppercase letters, numbers, and underscores
+
+    timezone:
+        - Optional:
+              constraints:
+                  - Timezone:
+                        message: Invalid timezone format
+
+    availableLocaleIsoCodes:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Available locale ISO codes must be an array
+                  - Count:
+                        min: 1
+                        minMessage: At least one locale ISO code is required
+
+    countries:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Countries must be an array
+
+    currencies:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Currencies must be an array
+
+    queuePools:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Queue pools must be an array
+
+    stores:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Stores must be an array
+
+    storesWithSharedPersistence:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Stores with shared persistence must be an array

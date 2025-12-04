@@ -1,5 +1,9 @@
 {
     "include": {
         "spryker/transfer": "Provides transfer objects definition with strict types."
+    },
+    "exclude": {
+        "api-platform/metadata": "Installed via spryker/api-platform.",
+        "api-platform/state": "Installed via spryker/api-platform."
     }
 }

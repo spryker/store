@@ -1,0 +1,19 @@
+resource:
+    name: Stores
+    shortName: Store
+    description: Store management API for storefront operations
+
+    provider: Spryker\Glue\Store\Api\Storefront\Provider\StoresStorefrontProvider
+
+    paginationEnabled: true
+    paginationItemsPerPage: 10
+
+    operations:
+        - type: Get
+        - type: GetCollection
+
+    properties:
+        name:
+            type: string
+            description: The unique store name identifier
+            identifier: true

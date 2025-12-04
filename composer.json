@@ -33,7 +33,6 @@
     },
     "suggest": {
         "spryker/config": "If you want to use StoreApplicationPlugin",
-        "spryker/container": "If you want to use Twig Plugins",
         "spryker/quote": "If you want to use StoreQuoteTransferExpander plugin, minimum required version: 1.2.0"
     },
     "autoload": {

@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "fileName": "src/Spryker/Glue/Store/Api/Backend/Processor/StoresBackendProcessor.php",
+        "description": "Method `Spryker\\Glue\\Store\\Api\\Backend\\Processor\\StoresBackendProcessor::process()` must have return type.",
+        "rule": "ExternalMethodExtensionReturnTypeRule",
+        "ruleset": "Spryker",
+        "priority": "1"
+    }
+]
