@@ -25,31 +25,6 @@ class StoreWriter implements StoreWriterInterface
     protected const ERROR_MESSAGE_STORE_IS_NOT_FOUND = 'Store not found.';
 
     /**
-     * @var \Spryker\Zed\Store\Persistence\StoreRepositoryInterface
-     */
-    protected StoreRepositoryInterface $storeRepository;
-
-    /**
-     * @var \Spryker\Zed\Store\Persistence\StoreEntityManagerInterface
-     */
-    protected StoreEntityManagerInterface $storeEntityManager;
-
-    /**
-     * @var \Spryker\Zed\Store\Business\Validator\StoreValidatorInterface
-     */
-    protected StoreValidatorInterface $storeValidator;
-
-    /**
-     * @var array<\Spryker\Zed\StoreExtension\Dependency\Plugin\StorePostCreatePluginInterface>
-     */
-    protected array $storePostCreatePlugins;
-
-    /**
-     * @var array<\Spryker\Zed\StoreExtension\Dependency\Plugin\StorePostUpdatePluginInterface>
-     */
-    protected array $storePostUpdatePlugins;
-
-    /**
      * @param \Spryker\Zed\Store\Persistence\StoreRepositoryInterface $storeRepository
      * @param \Spryker\Zed\Store\Persistence\StoreEntityManagerInterface $storeEntityManager
      * @param \Spryker\Zed\Store\Business\Validator\StoreValidatorInterface $storeValidator
@@ -57,17 +32,12 @@ class StoreWriter implements StoreWriterInterface
      * @param array<\Spryker\Zed\StoreExtension\Dependency\Plugin\StorePostUpdatePluginInterface> $storePostUpdatePlugins
      */
     public function __construct(
-        StoreRepositoryInterface $storeRepository,
-        StoreEntityManagerInterface $storeEntityManager,
-        StoreValidatorInterface $storeValidator,
-        array $storePostCreatePlugins,
-        array $storePostUpdatePlugins
+        protected StoreRepositoryInterface $storeRepository,
+        protected StoreEntityManagerInterface $storeEntityManager,
+        protected StoreValidatorInterface $storeValidator,
+        protected array $storePostCreatePlugins,
+        protected array $storePostUpdatePlugins
     ) {
-        $this->storeRepository = $storeRepository;
-        $this->storeEntityManager = $storeEntityManager;
-        $this->storePostCreatePlugins = $storePostCreatePlugins;
-        $this->storePostUpdatePlugins = $storePostUpdatePlugins;
-        $this->storeValidator = $storeValidator;
     }
 
     /**

@@ -1,6 +1,6 @@
 resource:
     name: Stores
-    shortName: Store
+    shortName: stores
     description: Store management API for Backend operations
 
     provider: Spryker\Glue\Store\Api\Backend\Provider\StoresBackendProvider
@@ -11,16 +11,21 @@ resource:
 
     operations:
         - type: Post
+          validationGroups: ['Default', 'stores:create']
+        - type: Patch
+          validationGroups: ['Default', 'stores:update']
         - type: Get
         - type: GetCollection
-        - type: Patch
 
     properties:
         name:
             type: string
-            description: The unique store name identifier
+            description: The unique store name identifier. Must contain only uppercase letters, numbers, and underscores.
             writable: true
+            required: true
             identifier: true
+            openapiContext:
+                example: EU_STORE
 
         idStore:
             type: integer
@@ -30,29 +35,36 @@ resource:
 
         timezone:
             type: string
-            description: The timezone for the store
-            required: false
-
-        availableLocaleIsoCodes:
-            type: array
-            description: List of available locale ISO codes
+            description: The timezone for the store. Must be a valid PHP timezone identifier.
+            openapiContext:
+                example: Europe/Berlin
 
         countries:
             type: array
-            description: List of available countries
+            description: List of available countries using ISO 3166-1 alpha-2 country codes (two uppercase letters).
+            openapiContext:
+                example: ['DE', 'AT']
 
         currencies:
             type: array
-            description: List of available currencies
+            description: List of available currencies using ISO 4217 currency codes (three uppercase letters).
+            openapiContext:
+                example: ['EUR', 'USD']
 
         queuePools:
             type: array
-            description: List of queue pool configurations
+            description: List of queue pool configurations. Each queue pool defines message queue processing settings for the store.
+            openapiContext:
+                example: []
 
         stores:
             type: array
-            description: List of related stores
+            description: List of related stores that share business context with this store.
+            openapiContext:
+                example: []
 
         storesWithSharedPersistence:
             type: array
-            description: List of stores with shared persistence
+            description: List of stores that share the same database persistence layer with this store. Stores with shared persistence have access to the same data.
+            openapiContext:
+                example: []

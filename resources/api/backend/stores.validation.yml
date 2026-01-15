@@ -9,26 +9,21 @@ post:
               maxMessage: Store name cannot exceed 255 characters
         - Regex:
               pattern: '/^[A-Z][A-Z0-9_]*$/'
-              message: Store name must start with uppercase letter and contain only uppercase letters, numbers, and underscores
+              message: Store name must contain only uppercase letters, numbers, and underscores
 
     timezone:
-        - NotBlank:
-              message: Timezone is required
         - Timezone:
               message: Invalid timezone format
-
-    availableLocaleIsoCodes:
-        - Type:
-              type: array
-              message: Available locale ISO codes must be an array
-        - Count:
-              min: 1
-              minMessage: At least one locale ISO code is required
 
     countries:
         - Type:
               type: array
               message: Countries must be an array
+        - All:
+              constraints:
+                  - Regex:
+                        pattern: '/^[A-Z]{2}$/'
+                        message: Each country code must be exactly two uppercase letters (ISO 3166-1 alpha-2 format)
 
     currencies:
         - Type:
@@ -69,22 +64,17 @@ patch:
                   - Timezone:
                         message: Invalid timezone format
 
-    availableLocaleIsoCodes:
-        - Optional:
-              constraints:
-                  - Type:
-                        type: array
-                        message: Available locale ISO codes must be an array
-                  - Count:
-                        min: 1
-                        minMessage: At least one locale ISO code is required
-
     countries:
         - Optional:
               constraints:
                   - Type:
                         type: array
                         message: Countries must be an array
+                  - All:
+                        constraints:
+                            - Regex:
+                                  pattern: '/^[A-Z]{2}$/'
+                                  message: Each country code must be exactly two uppercase letters (ISO 3166-1 alpha-2 format)
 
     currencies:
         - Optional:

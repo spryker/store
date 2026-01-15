@@ -17,3 +17,5 @@ resource:
             type: string
             description: The unique store name identifier
             identifier: true
+            openapiContext:
+                example: DE

@@ -1,0 +1,36 @@
+namespace: SprykerTest\Glue\Store
+paths:
+    tests: .
+    data: ../../../_data
+    support: _support
+    output: ../../../_output
+
+suites:
+    BackendApi:
+        path: BackendApi
+        actor: BackendApiTester
+        modules:
+            enabled:
+                - \SprykerTest\Shared\Testify\Helper\Environment
+                - \SprykerTest\Shared\Testify\Helper\LocatorHelper
+                - \SprykerTest\Service\Container\Helper\ContainerHelper
+                - \SprykerTest\ApiPlatform\Helper\ApiPlatformHelper:
+                      mode: 'core'
+                - \SprykerTest\Shared\Propel\Helper\TransactionHelper
+                - \SprykerTest\Shared\Store\Helper\StoreDataHelper
+                - \SprykerTest\Shared\Testify\Helper\DataCleanupHelper
+
+    StorefrontApi:
+        path: StorefrontApi
+        actor: StorefrontApiTester
+        modules:
+            enabled:
+                - \SprykerTest\Shared\Testify\Helper\Environment
+                - \SprykerTest\Shared\Testify\Helper\LocatorHelper
+                - \SprykerTest\Service\Container\Helper\ContainerHelper
+                - \SprykerTest\ApiPlatform\Helper\ApiPlatformHelper:
+                      mode: 'core'
+                - \SprykerTest\Service\Container\Helper\ContainerHelper
+                - \SprykerTest\Shared\Propel\Helper\TransactionHelper
+                - \SprykerTest\Shared\Store\Helper\StoreDataHelper
+                - \SprykerTest\Shared\Testify\Helper\DataCleanupHelper

@@ -10,10 +10,16 @@ declare(strict_types=1);
 namespace Spryker\Glue\Store\Api\Backend\Processor;
 
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use ApiPlatform\State\ProcessorInterface;
 use Generated\Api\Backend\StoresBackendResource;
+use Generated\Shared\Transfer\StoreApplicationContextCollectionTransfer;
+use Generated\Shared\Transfer\StoreApplicationContextTransfer;
+use Generated\Shared\Transfer\StoreResponseTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Store\Business\StoreFacadeInterface;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * @implements \ApiPlatform\State\ProcessorInterface<\Generated\Api\Backend\StoresBackendResource, \Generated\Api\Backend\StoresBackendResource>
@@ -36,13 +42,15 @@ class StoresBackendProcessor implements ProcessorInterface
     {
         $storeTransfer = $this->mapResourceToTransfer($data);
 
-        if ($operation->getName() === 'post') {
+        if ($operation instanceof Post) {
             $storeTransferResponseTransfer = $this->storeFacade->createStore($storeTransfer);
+
+            $this->validateStoreResponse($storeTransferResponseTransfer);
 
             return $this->mapTransferToResource($storeTransferResponseTransfer->getStoreOrFail());
         }
 
-        if ($operation->getName() === 'patch') {
+        if ($operation instanceof Patch) {
             $existingStoreTransfer = $this->storeFacade->getStoreByName($uriVariables['name']);
 
             if (!($existingStoreTransfer instanceof StoreTransfer)) {
@@ -50,7 +58,10 @@ class StoresBackendProcessor implements ProcessorInterface
             }
 
             $storeTransfer->setIdStore($existingStoreTransfer->getIdStore());
+
             $storeTransferResponseTransfer = $this->storeFacade->updateStore($storeTransfer);
+
+            $this->validateStoreResponse($storeTransferResponseTransfer);
 
             return $this->mapTransferToResource($storeTransferResponseTransfer->getStoreOrFail());
         }
@@ -63,11 +74,41 @@ class StoresBackendProcessor implements ProcessorInterface
         $storeTransfer = new StoreTransfer();
         $storeTransfer->fromArray($resource->toArray(), true);
 
+        if (property_exists($resource, 'applicationContextCollection') && $resource->applicationContextCollection !== null) {
+            $collection = new StoreApplicationContextCollectionTransfer();
+
+            if (isset($resource->applicationContextCollection['applicationContexts']) && is_array($resource->applicationContextCollection['applicationContexts'])) {
+                foreach ($resource->applicationContextCollection['applicationContexts'] as $context) {
+                    $contextTransfer = new StoreApplicationContextTransfer();
+                    $contextTransfer->setApplication($context['application'] ?? null);
+                    $contextTransfer->setTimezone($context['timezone']);
+                    $collection->addApplicationContext($contextTransfer);
+                }
+            }
+
+            $storeTransfer->setApplicationContextCollection($collection);
+        }
+
         return $storeTransfer;
     }
 
     protected function mapTransferToResource(StoreTransfer $storeTransfer): StoresBackendResource
     {
         return StoresBackendResource::fromArray($storeTransfer->toArray());
+    }
+
+    protected function validateStoreResponse(StoreResponseTransfer $storeResponseTransfer): void
+    {
+        if (!$storeResponseTransfer->getIsSuccessful()) {
+            $errorMessages = [];
+
+            foreach ($storeResponseTransfer->getMessages() as $messageTransfer) {
+                $errorMessages[] = $messageTransfer->getMessage() ?? $messageTransfer->getValue();
+            }
+
+            $errorMessage = implode(' ', $errorMessages);
+
+            throw new UnprocessableEntityHttpException($errorMessage);
+        }
     }
 }

@@ -24,6 +24,7 @@
 
     <transfer name="Message">
         <property name="value" type="string"/>
+        <property name="message" type="string"/>
     </transfer>
 
     <transfer name="StoreRelation">
@@ -128,6 +129,12 @@
 
     <transfer name="Order">
         <property name="store" type="string"/>
+    </transfer>
+
+    <transfer name="StoreApplicationContextCollection" strict="true">
+    </transfer>
+
+    <transfer name="StoreApplicationContext" strict="true">
     </transfer>
 
 </transfers>

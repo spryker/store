@@ -32,8 +32,8 @@ class StoresBackendProvider implements ProviderInterface
             return $this->provideCollection($context);
         }
 
-        $storeTransfer = $this->storeFacade->getStoreByName($name);
         /** @var \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer */
+        $storeTransfer = $this->storeFacade->getStoreByName($name);
 
         if ($storeTransfer === null) {
             return null;
