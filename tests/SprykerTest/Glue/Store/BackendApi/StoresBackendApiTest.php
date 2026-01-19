@@ -27,6 +27,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenInvalidDataWhenCreatingStoreViaPostThenValidationErrorIsReturned(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $invalidStoreData = ['timezone' => 'Europe/Berlin'];
 
         // Act
@@ -45,6 +49,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenValidDataWhenCreatingStoreViaPostThenStoreIsCreatedSuccessfully(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $storeData = [
             'name' => 'API_TEST_STORE',
         ];
@@ -60,6 +68,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenExistingStoreWhenRetrievingViaGetThenStoreDataIsReturned(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $storeTransfer = $this->tester->haveStore([
             'name' => 'API_TEST_GET_STORE',
         ]);
@@ -75,6 +87,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenMultipleStoresWhenRetrievingCollectionViaGetThenAllStoresAreReturned(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $this->tester->haveStore(['name' => 'API_TEST_STORE_1']);
         $this->tester->haveStore(['name' => 'API_TEST_STORE_2']);
         $this->tester->haveStore(['name' => 'API_TEST_STORE_3']);
@@ -95,6 +111,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenExistingStoreWhenUpdatingViaPatchThenStoreIsUpdatedSuccessfully(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $storeData = [
             'name' => 'API_TEST_PATCH_STORE',
             'timezone' => 'UTC',
@@ -117,6 +137,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenDuplicateNameWhenCreatingStoreViaPostThenErrorIsReturned(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $this->tester->haveStore(['name' => 'API_DUPLICATE_STORE']);
         $duplicateData = [
             'name' => 'API_DUPLICATE_STORE',
@@ -134,6 +158,10 @@ class StoresBackendApiTest extends BackendApiTestCase
     public function testGivenPaginationParamsWhenRetrievingCollectionThenPaginatedResultsAreReturned(): void
     {
         // Arrange
+        if (!$this->tester->isDynamicStoreEnabled()) {
+            $this->markTestSkipped('is test can only run in successfully when Dynamic Store mode is enabled.');
+        }
+
         $itemsPerPage = 10;
         $totalStores = $itemsPerPage * 2;
 

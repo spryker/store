@@ -14,6 +14,7 @@
         <property name="countries" type="array" singular="country"/>
         <property name="timezone" type="string"/>
         <property name="storeReference" type="string" deprecated="Will be removed without replacement."/>
+        <property name="applicationContextCollection" type="StoreApplicationContextCollection" strict="true"/>
     </transfer>
 
     <transfer name="StoreResponse">
@@ -132,9 +133,11 @@
     </transfer>
 
     <transfer name="StoreApplicationContextCollection" strict="true">
+        <property name="applicationContexts" type="StoreApplicationContext[]" singular="applicationContext"/>
     </transfer>
 
     <transfer name="StoreApplicationContext" strict="true">
+        <property name="timezone" type="string"/>
     </transfer>
 
 </transfers>
