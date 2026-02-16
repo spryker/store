@@ -6,3 +6,11 @@ parameters:
         - message: '#PHPDoc tag @return contains generic type .+DataTransformerInterface<.+> but interface .+DataTransformerInterface is not generic#'
         - message: '#PHPDoc tag @implements contains generic type .+DataTransformerInterface<.+> but interface .+DataTransformerInterface is not generic#'
         - '#Method Spryker\\Zed\\Store\\Communication\\Plugin\\MessageBroker\\StoreReferenceMessageValidatorPlugin::isValid\(\) should return bool but returns bool\|null.#'
+        -
+            identifier: instanceof.alwaysTrue
+        -
+            identifier: function.alreadyNarrowedType
+        -
+            identifier: notIdentical.alwaysTrue
+        -
+            identifier: varTag.nativeType
