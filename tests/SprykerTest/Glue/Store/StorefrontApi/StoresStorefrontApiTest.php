@@ -40,7 +40,7 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
 
         // Assert
         $this->assertResponseIsSuccessful();
-        $this->assertJsonContains(['name' => 'DE']);
+        $this->assertJsonContains(['data' => ['attributes' => ['name' => 'DE']]]);
     }
 
     public function testGivenMultipleStoresWhenRetrievingCollectionViaGetThenAllStoresAreReturned(): void
@@ -57,7 +57,9 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
 
         // Assert
         $this->assertResponseIsSuccessful();
-        $this->assertJsonContains(['@type' => 'Collection']);
+        $response = json_decode($this->getClient()->getResponse()->getContent(), true);
+        $this->assertIsArray($response['data']);
+        $this->assertCount(2, $response['data']);
     }
 
     public function testGivenNonExistentStoreWhenRetrievingViaGetThen404IsReturned(): void
@@ -89,6 +91,7 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
 
         // Assert
         $this->assertResponseIsSuccessful();
-        $this->assertJsonContains(['@type' => 'Collection']);
+        $response = json_decode($this->getClient()->getResponse()->getContent(), true);
+        $this->assertIsArray($response['data']);
     }
 }

@@ -1,6 +1,6 @@
 resource:
     name: Stores
-    shortName: Store
+    shortName: store
     description: Store management API for storefront operations
 
     provider: Spryker\Glue\Store\Api\Storefront\Provider\StoresStorefrontProvider

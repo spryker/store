@@ -137,6 +137,7 @@
     </transfer>
 
     <transfer name="StoreApplicationContext" strict="true">
+        <property name="application" type="string"/>
         <property name="timezone" type="string"/>
     </transfer>
 
