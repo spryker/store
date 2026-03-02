@@ -21,9 +21,6 @@ class StoreReferenceReader implements StoreReferenceReaderInterface
      */
     protected $storeConfig;
 
-    /**
-     * @param \Spryker\Zed\Store\StoreConfig $storeConfig
-     */
     public function __construct(StoreConfig $storeConfig)
     {
         $this->storeConfig = $storeConfig;
@@ -53,11 +50,6 @@ class StoreReferenceReader implements StoreReferenceReaderInterface
         return $storeReferenceMap[$storeReference];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function extendStoreByStoreReference(StoreTransfer $storeTransfer): StoreTransfer
     {
         $storeReferenceMap = $this->storeConfig->getStoreNameReferenceMap();

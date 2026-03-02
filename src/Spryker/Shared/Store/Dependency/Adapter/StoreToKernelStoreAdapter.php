@@ -19,9 +19,6 @@ class StoreToKernelStoreAdapter implements StoreToStoreInterface
      */
     protected $store;
 
-    /**
-     * @param \Spryker\Shared\Kernel\Store $store
-     */
     public function __construct(Store $store)
     {
         $this->store = $store;

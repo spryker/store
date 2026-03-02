@@ -90,11 +90,6 @@ class StoreDependencyHelper extends Module
         $this->removeCurrentStore();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return void
-     */
     public function addCurrentStore(StoreTransfer $storeTransfer): void
     {
         $this->getContainerHelper()
@@ -102,9 +97,6 @@ class StoreDependencyHelper extends Module
             ->set(static::SERVICE_STORE, $storeTransfer->getName());
     }
 
-    /**
-     * @return void
-     */
     public function removeCurrentStore(): void
     {
         if ($this->getContainerHelper()->getContainer()->has(static::SERVICE_STORE)) {

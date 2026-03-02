@@ -89,9 +89,6 @@ class StoreDependencyHelper extends Module
         ]);
     }
 
-    /**
-     * @return \Spryker\Zed\StoreExtension\Dependency\Plugin\StoreCollectionExpanderPluginInterface
-     */
     protected function createStoreCurrencyLocaleExpandedMock(): StoreCollectionExpanderPluginInterface
     {
         $storeTransfer = (new StoreTransfer())
@@ -107,9 +104,6 @@ class StoreDependencyHelper extends Module
         ]);
     }
 
-    /**
-     * @return \Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface
-     */
     protected function createStoreStorageStoreExpanderMock(): StoreExpanderPluginInterface
     {
         $storeTransfer = (new StoreTransfer())

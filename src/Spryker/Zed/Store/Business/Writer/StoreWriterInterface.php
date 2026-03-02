@@ -12,17 +12,7 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface StoreWriterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function createStore(StoreTransfer $storeTransfer): StoreResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function updateStore(StoreTransfer $storeTransfer): StoreResponseTransfer;
 }

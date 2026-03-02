@@ -17,9 +17,6 @@ class StoreRelationToggleDataProvider implements StoreRelationToggleDataProvider
      */
     protected $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\Store\Business\StoreFacadeInterface $storeFacade
-     */
     public function __construct(StoreFacadeInterface $storeFacade)
     {
         $this->storeFacade = $storeFacade;

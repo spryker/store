@@ -29,11 +29,6 @@ class StoreCommunicationTester extends Actor
 {
     use _generated\StoreCommunicationTesterActions;
 
-    /**
-     * @param array $storeNameReferenceMap
-     *
-     * @return void
-     */
     public function mockStoreNameReferenceMap(array $storeNameReferenceMap): void
     {
         $this->mockConfigMethod('getStoreNameReferenceMap', $storeNameReferenceMap);

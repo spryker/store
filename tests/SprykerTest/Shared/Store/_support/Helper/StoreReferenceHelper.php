@@ -28,9 +28,6 @@ class StoreReferenceHelper extends Module
         $this->getConfigHelper()->mockEnvironmentConfig(StoreConstants::STORE_NAME_REFERENCE_MAP, $storeReferenceData);
     }
 
-    /**
-     * @return void
-     */
     public function resetStoreCache(): void
     {
         $reflectedStoreCache = new ReflectionClass(StoreCache::class);

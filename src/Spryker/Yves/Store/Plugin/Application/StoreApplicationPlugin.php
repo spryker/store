@@ -39,11 +39,6 @@ class StoreApplicationPlugin extends AbstractPlugin implements ApplicationPlugin
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addStore(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::STORE, function () {
@@ -53,9 +48,6 @@ class StoreApplicationPlugin extends AbstractPlugin implements ApplicationPlugin
         return $container;
     }
 
-    /**
-     * @return string
-     */
     protected function getStoreName(): string
     {
         return $this->getClient()->getCurrentStore()->getNameOrFail();

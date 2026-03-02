@@ -40,11 +40,6 @@ class StoreWriter implements StoreWriterInterface
     ) {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function createStore(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         return $this->getTransactionHandler()->handleTransaction(function () use ($storeTransfer) {
@@ -52,11 +47,6 @@ class StoreWriter implements StoreWriterInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function updateStore(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         return $this->getTransactionHandler()->handleTransaction(function () use ($storeTransfer) {
@@ -64,11 +54,6 @@ class StoreWriter implements StoreWriterInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function executeCreateStoreTransaction(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = $this->storeValidator->validateStoreNameIsUnique($storeTransfer);
@@ -89,11 +74,6 @@ class StoreWriter implements StoreWriterInterface
         return $this->executePostCreatePlugins($storeTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function executeUpdateStoreTransaction(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $store = $this->storeRepository->findStoreById($storeTransfer->getIdStoreOrFail());
@@ -115,11 +95,6 @@ class StoreWriter implements StoreWriterInterface
         return $this->executePostUpdatePlugins($storeTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function executePostCreatePlugins(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = (new StoreResponseTransfer())
@@ -136,11 +111,6 @@ class StoreWriter implements StoreWriterInterface
         return $storeResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function executePostUpdatePlugins(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = (new StoreResponseTransfer())
@@ -157,12 +127,6 @@ class StoreWriter implements StoreWriterInterface
         return $storeResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreResponseTransfer $sourceStoreResponseTransfer
-     * @param \Generated\Shared\Transfer\StoreResponseTransfer $storeResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function mergeStoreResponseTransfers(
         StoreResponseTransfer $sourceStoreResponseTransfer,
         StoreResponseTransfer $storeResponseTransfer

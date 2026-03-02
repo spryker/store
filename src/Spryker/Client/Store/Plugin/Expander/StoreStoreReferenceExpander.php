@@ -20,19 +20,11 @@ class StoreStoreReferenceExpander implements StoreExpanderInterface
      */
     protected $storeConfig;
 
-    /**
-     * @param \Spryker\Client\Store\StoreConfig $storeConfig
-     */
     public function __construct(StoreConfig $storeConfig)
     {
         $this->storeConfig = $storeConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function expand(StoreTransfer $storeTransfer): StoreTransfer
     {
         $storeReferenceMap = $this->storeConfig->getStoreNameReferenceMap();

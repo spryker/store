@@ -76,9 +76,6 @@ class StoreFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -93,9 +90,6 @@ class StoreFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetCurrentStoreShouldReturnCurrentStoreTransfer(): void
     {
         // Arrange
@@ -111,9 +105,6 @@ class StoreFacadeTest extends Unit
         $this->assertNotEmpty($storeTransfer->getIdStore());
     }
 
-    /**
-     * @return void
-     */
     public function testGetAllStoresShouldReturnAllStore(): void
     {
         //Arrange
@@ -126,9 +117,6 @@ class StoreFacadeTest extends Unit
         $this->assertIsArray($stores);
     }
 
-    /**
-     * @return void
-     */
     public function testGetStoreByIdShouldReturnStoreFromPersistence(): void
     {
         //Arrange
@@ -144,9 +132,6 @@ class StoreFacadeTest extends Unit
         $this->assertNotEmpty($storeTransfer->getStoreReference());
     }
 
-    /**
-     * @return void
-     */
     public function testGetStoreByNameShouldReturnStore(): void
     {
         //Arrange
@@ -162,9 +147,6 @@ class StoreFacadeTest extends Unit
         $this->assertNotEmpty($storeTransfer->getIdStore());
     }
 
-    /**
-     * @return void
-     */
     public function testFindStoreByNameShouldReturnStore(): void
     {
         //Arrange
@@ -179,9 +161,6 @@ class StoreFacadeTest extends Unit
         $this->assertNotEmpty($storeTransfer->getIdStore());
     }
 
-    /**
-     * @return void
-     */
     public function testFindStoreByWrongNameShouldReturnNull(): void
     {
         //Arrange
@@ -194,9 +173,6 @@ class StoreFacadeTest extends Unit
         $this->assertNull($storeTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetStoreTransfersByStoreNamesReturnStores(): void
     {
         //Arrange
@@ -215,9 +191,6 @@ class StoreFacadeTest extends Unit
         $this->assertEquals(static::ALTERNATIVE_STORE_NAME, $storeTransfers[1]->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testCreateStoreShouldReturnCreatedStore(): void
     {
         //Arrange
@@ -241,9 +214,6 @@ class StoreFacadeTest extends Unit
         $this->assertNotNull($storeResponseTransfer->getStoreOrFail()->getAvailableLocaleIsoCodes());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateStoreCurrencyShouldReturnUpdatedData(): void
     {
         //Arrange
@@ -264,9 +234,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame($currencies, $storeResponseTransfer->getStoreOrFail()->getAvailableCurrencyIsoCodes());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateStoreLocaleShouldReturnUpdatedData(): void
     {
         //Arrange
@@ -287,9 +254,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame($locales, $storeResponseTransfer->getStoreOrFail()->getAvailableLocaleIsoCodes());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateStoreShouldReturnUpdatedStore(): void
     {
         //Arrange
@@ -305,9 +269,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame($storeTransfer->getIdStore(), $resultStore->getIdStore());
     }
 
-    /**
-     * @return void
-     */
     public function testGetStoreCollectionByCriteriaShouldReturnStore(): void
     {
         //Arrange
@@ -330,9 +291,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame($storeTransfer->getIdStoreOrFail(), $foundStoreTransfers[0]->getIdStore());
     }
 
-    /**
-     * @return void
-     */
     public function testValidateQuoteStoreWithMissingStore(): void
     {
         //Arrange
@@ -347,9 +305,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame(1, $quoteValidationTransfer->getErrors()->count());
     }
 
-    /**
-     * @return void
-     */
     public function testValidateQuoteStoreWithMissingStoreName(): void
     {
         //Arrange
@@ -364,9 +319,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame(1, $quoteValidationTransfer->getErrors()->count());
     }
 
-    /**
-     * @return void
-     */
     public function testValidateQuoteStoreWithWrongStoreName(): void
     {
         //Arrange
@@ -381,9 +333,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame(1, $quoteValidationTransfer->getErrors()->count());
     }
 
-    /**
-     * @return void
-     */
     public function testValidateQuoteStoreWithCorrectStoreName(): void
     {
         //Arrange
@@ -426,9 +375,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame($expectedStoreNames, $availableStoreNames, 'Available stores should contain stores with shared persistence.');
     }
 
-    /**
-     * @return void
-     */
     public function testCreateStoreWithNotUniqueName(): void
     {
         // Arrange
@@ -445,9 +391,6 @@ class StoreFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetStoreByStoreReferenceReturnsExpectedTransferWhenInputArgumentIsCorrect(): void
     {
         // Arrange
@@ -461,9 +404,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame(static::DEFAULT_STORE_NAME, $storeTransfer->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testStoreNameIsReadOnlyAndCannotBeUpdated(): void
     {
         // Arrange
@@ -478,9 +418,6 @@ class StoreFacadeTest extends Unit
         $this->assertSame($storeTransfer->getName(), static::DEFAULT_STORE_NAME);
     }
 
-    /**
-     * @return void
-     */
     public function testGetStoreByStoreReferenceThrowsExceptionWhenInputArgumentIsNotCorrect(): void
     {
         // Arrange
@@ -493,9 +430,6 @@ class StoreFacadeTest extends Unit
         $this->tester->getFacade()->getStoreByStoreReference($invalidStoreReference);
     }
 
-    /**
-     * @return void
-     */
     public function testMessageTransferValidationIsSuccessful(): void
     {
         // Arrange
@@ -510,9 +444,6 @@ class StoreFacadeTest extends Unit
         $this->assertTrue($messageValidationResponseTransfer->getIsValid());
     }
 
-    /**
-     * @return void
-     */
     public function testMessageTransferValidationFailsWhenCurrentStoreIsMissing(): void
     {
         // Arrange
@@ -527,9 +458,6 @@ class StoreFacadeTest extends Unit
             : $this->assertFalse($messageValidationResponseTransfer->getIsValid());
     }
 
-    /**
-     * @return void
-     */
     public function testMessageTransferValidationFailsWhenStoreReferenceMismatch(): void
     {
         // Arrange
@@ -546,9 +474,6 @@ class StoreFacadeTest extends Unit
             : $this->assertFalse($messageValidationResponseTransfer->getIsValid());
     }
 
-    /**
-     * @return void
-     */
     public function testMessageAttributesSuccessfullyExpandedWithStoreReference(): void
     {
         // Arrange
@@ -564,9 +489,6 @@ class StoreFacadeTest extends Unit
         $this->assertNotEquals(static::DEFAULT_STORE_REFERENCE, $messageAttributesTransfer->getEmitter());
     }
 
-    /**
-     * @return void
-     */
     public function testMessageAttributesNotExpandedWithStoreReferenceWhenItsMissing(): void
     {
         // Arrange
@@ -587,9 +509,6 @@ class StoreFacadeTest extends Unit
         $this->assertNull($messageAttributesTransfer->getEmitter());
     }
 
-    /**
-     * @return void
-     */
     public function testAccessTokenRequestNotExpandedWithStoreReferenceWhenItsMissing(): void
     {
         // Arrange
@@ -609,9 +528,6 @@ class StoreFacadeTest extends Unit
         $this->assertNull($accessTokenRequestTransfer->getAccessTokenRequestOptions()->getStoreReference());
     }
 
-    /**
-     * @return void
-     */
     public function testAccessTokenRequestSuccessfullyExpandedWithStoreReference(): void
     {
         // Arrange
@@ -630,17 +546,11 @@ class StoreFacadeTest extends Unit
         $this->assertEquals($storeReference, $accessTokenRequestTransfer->getAccessTokenRequestOptions()->getStoreReference());
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\StoreFacade
-     */
     protected function createStoreFacade(): StoreFacade
     {
         return new StoreFacade();
     }
 
-    /**
-     * @return \Spryker\Shared\Store\Dependency\Adapter\StoreToStoreInterface
-     */
     protected function getStoreToStoreInterface(): StoreToStoreInterface
     {
         $storeToStoreInterfaceMock = $this->getMockBuilder(StoreToStoreInterface::class)->getMock();
@@ -649,9 +559,6 @@ class StoreFacadeTest extends Unit
         return $storeToStoreInterfaceMock;
     }
 
-    /**
-     * @return bool
-     */
     protected function isDynamicStoreEnabled(): bool
     {
         return (bool)getenv('SPRYKER_DYNAMIC_STORE_MODE');

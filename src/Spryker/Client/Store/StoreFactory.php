@@ -33,9 +33,6 @@ class StoreFactory extends AbstractFactory
         return new ClientStoreReader($this->getStoreCollectionExpanderPlugins());
     }
 
-    /**
-     * @return string
-     */
     public function getStoreService(): string
     {
         return $this->getProvidedDependency(StoreDependencyProvider::SERVICE_STORE);
@@ -82,9 +79,6 @@ class StoreFactory extends AbstractFactory
         return $this->getProvidedDependency(StoreDependencyProvider::DYNAMIC_STORE_MODE);
     }
 
-    /**
-     * @return bool
-     */
     public function getCurrentStoreDefinedFlag(): bool
     {
         return $this->getProvidedDependency(StoreDependencyProvider::CURRENT_STORE_PROVIDED_FLAG);
@@ -100,25 +94,16 @@ class StoreFactory extends AbstractFactory
         ];
     }
 
-    /**
-     * @return \Spryker\Client\Store\Plugin\Expander\StoreExpanderInterface
-     */
     public function createStoreReferenceExpander(): StoreExpanderInterface
     {
         return new StoreStoreReferenceExpander($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Client\Store\Zed\StoreStubInterface
-     */
     public function createStoreStub(): StoreStubInterface
     {
         return new StoreStub($this->getZedRequestClient());
     }
 
-    /**
-     * @return \Spryker\Client\Store\Dependency\Client\StoreToZedRequestClientInterface
-     */
     public function getZedRequestClient(): StoreToZedRequestClientInterface
     {
         return $this->getProvidedDependency(StoreDependencyProvider::CLIENT_ZED_REQUEST);

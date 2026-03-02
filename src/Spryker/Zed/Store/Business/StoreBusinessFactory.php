@@ -43,9 +43,6 @@ use Spryker\Zed\Store\StoreDependencyProvider;
  */
 class StoreBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\Store\Business\Model\StoreReaderInterface
-     */
     public function createStoreReader(): StoreReaderInterface
     {
         return new StoreReader(
@@ -57,9 +54,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Writer\StoreWriterInterface
-     */
     public function createStoreWriter(): StoreWriterInterface
     {
         return new StoreWriter(
@@ -71,9 +65,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Validator\StoreValidatorInterface
-     */
     public function createStoreDataValidator(): StoreDataValidatorInterface
     {
         return new StoreDataValidator(
@@ -83,9 +74,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Expander\StoreExpanderInterface
-     */
     public function createStoreExpander(): StoreExpanderInterface
     {
         if ($this->getIsDynamicStoreModeEnabled()) {
@@ -97,9 +85,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Expander\StoreExpanderInterface
-     */
     public function createDynamicStoreExpander(): StoreExpanderInterface
     {
         return new DynamicStoreExpander(
@@ -108,17 +93,11 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Model\StoreValidatorInterface
-     */
     public function createStoreValidator(): StoreValidatorInterface
     {
         return new StoreValidator($this->createStoreReader());
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Cache\StoreCacheInterface
-     */
     public function createStoreCache(): StoreCacheInterface
     {
         return new StoreCache();
@@ -144,11 +123,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(StoreDependencyProvider::STORE);
     }
 
-    /**
-     * @param bool $fallbackToDefault
-     *
-     * @return string
-     */
     public function getCurrentStore(bool $fallbackToDefault = false): string
     {
         if ($fallbackToDefault === true && !$this->getCurrentStoreDefinedFlag()) {
@@ -161,11 +135,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(StoreDependencyProvider::STORE_CURRENT);
     }
 
-    /**
-     * @param bool $fallbackToDefault
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStoreTransfer(bool $fallbackToDefault = false): StoreTransfer
     {
         return $this->createStoreReader()->getStoreByName(
@@ -173,9 +142,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return bool
-     */
     public function getIsDynamicStoreModeEnabled(): bool
     {
         return $this->getProvidedDependency(StoreDependencyProvider::DYNAMIC_STORE_MODE);
@@ -221,9 +187,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(StoreDependencyProvider::PLUGINS_STORE_COLLECTION_EXPANDER);
     }
 
-    /**
-     * @return bool
-     */
     public function getCurrentStoreDefinedFlag(): bool
     {
         return $this->getProvidedDependency(StoreDependencyProvider::CURRENT_STORE_PROVIDED_FLAG);
@@ -272,9 +235,6 @@ class StoreBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Validator\MessageValidatorInterface
-     */
     public function createMessageTransferValidator(): MessageValidatorInterface
     {
         return new MessageValidator(

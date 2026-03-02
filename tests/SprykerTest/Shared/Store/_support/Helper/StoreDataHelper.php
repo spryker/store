@@ -80,9 +80,6 @@ class StoreDataHelper extends Module
         return $storeTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getAllowedStore(): StoreTransfer
     {
         $storeTransfers = $this->getStoreFacade()->getAllStores();
@@ -94,33 +91,21 @@ class StoreDataHelper extends Module
         return new StoreTransfer();
     }
 
-    /**
-     * @return bool
-     */
     public function isDynamicStoreEnabled(): bool
     {
         return (bool)getenv('SPRYKER_DYNAMIC_STORE_MODE');
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\StoreFacadeInterface
-     */
     protected function getStoreFacade(): StoreFacadeInterface
     {
         return $this->getLocator()->store()->facade();
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\Expander\StoreExpanderInterface
-     */
     protected function createStoreExpander(): StoreExpanderInterface
     {
         return (new StoreBusinessFactory())->createStoreExpander();
     }
 
-    /**
-     * @return void
-     */
     protected function clearStoreCache(): void
     {
         $reflectionProperty = new ReflectionProperty(StoreCache::class, 'storeTransfersCacheByStoreId');
@@ -132,9 +117,6 @@ class StoreDataHelper extends Module
         ($reflectionProperty)->setValue(null, []);
     }
 
-    /**
-     * @return int
-     */
     public function countStores(): int
     {
         return $this->getStorePropelQuery()
@@ -142,11 +124,6 @@ class StoreDataHelper extends Module
             ->count();
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function storeWithNameExists(string $name): bool
     {
         return $this->getStorePropelQuery()
@@ -154,9 +131,6 @@ class StoreDataHelper extends Module
             ->exists();
     }
 
-    /**
-     * @return \Orm\Zed\Store\Persistence\SpyStoreQuery
-     */
     protected function getStorePropelQuery(): SpyStoreQuery
     {
         return SpyStoreQuery::create();

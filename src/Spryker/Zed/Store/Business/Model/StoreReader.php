@@ -47,13 +47,6 @@ class StoreReader implements StoreReaderInterface
      */
     protected $storeReferenceReader;
 
-    /**
-     * @param \Spryker\Zed\Store\Persistence\StoreRepositoryInterface $storeRepository
-     * @param \Spryker\Zed\Store\Business\Cache\StoreCacheInterface $storeCache
-     * @param \Spryker\Zed\Store\Business\Reader\StoreReferenceReaderInterface $storeReferenceReader
-     * @param \Spryker\Zed\Store\Business\Expander\StoreExpanderInterface $storeExpander
-     * @param bool $isDynamicMultiStoreEnabled
-     */
     public function __construct(
         StoreRepositoryInterface $storeRepository,
         StoreCacheInterface $storeCache,
@@ -147,11 +140,6 @@ class StoreReader implements StoreReaderInterface
         return $storeTransfer;
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreByName(string $storeName): ?StoreTransfer
     {
         if ($this->storeCache->hasStoreByStoreName($storeName)) {
@@ -230,11 +218,6 @@ class StoreReader implements StoreReaderInterface
         ], $this->getStoresWithSharedPersistence($currentStoreTransfer));
     }
 
-    /**
-     * @param string $storeReference
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getStoreByStoreReference(string $storeReference): StoreTransfer
     {
         $storeName = $this->storeReferenceReader->getStoreNameByStoreReference($storeReference);
@@ -294,11 +277,6 @@ class StoreReader implements StoreReaderInterface
         return $resolvedStoreTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreCriteriaTransfer $storeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreCollectionTransfer
-     */
     public function getStoreCollection(StoreCriteriaTransfer $storeCriteriaTransfer): StoreCollectionTransfer
     {
         $withExpanders = $storeCriteriaTransfer->getStoreConditions() && $storeCriteriaTransfer->getStoreConditions()->getWithExpanders() !== null

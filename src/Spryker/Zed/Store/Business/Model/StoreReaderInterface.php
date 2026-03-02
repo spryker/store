@@ -36,11 +36,6 @@ interface StoreReaderInterface
      */
     public function getStoreByName($storeName);
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreByName(string $storeName): ?StoreTransfer;
 
     /**
@@ -69,17 +64,7 @@ interface StoreReaderInterface
      */
     public function getStoresAvailableForCurrentPersistence(StoreTransfer $currentStoreTransfer): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreCriteriaTransfer $storeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreCollectionTransfer
-     */
     public function getStoreCollection(StoreCriteriaTransfer $storeCriteriaTransfer): StoreCollectionTransfer;
 
-    /**
-     * @param string $storeReference
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getStoreByStoreReference(string $storeReference): StoreTransfer;
 }

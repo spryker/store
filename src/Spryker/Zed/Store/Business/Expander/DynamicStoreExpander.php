@@ -32,11 +32,6 @@ class DynamicStoreExpander implements StoreExpanderInterface
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function expandStore(StoreTransfer $storeTransfer): StoreTransfer
     {
         /** @phpstan-var non-empty-array<int, \Generated\Shared\Transfer\StoreTransfer> $storeTransfers */

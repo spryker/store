@@ -22,31 +22,16 @@ class StoreCache implements StoreCacheInterface
      */
     protected static $storeTransferCacheByStoreName = [];
 
-    /**
-     * @param int $idStore
-     *
-     * @return bool
-     */
     public function hasStoreByStoreId(int $idStore): bool
     {
         return isset(static::$storeTransfersCacheByStoreId[$idStore]);
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return bool
-     */
     public function hasStoreByStoreName(string $storeName): bool
     {
         return isset(static::$storeTransferCacheByStoreName[$storeName]);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return void
-     */
     public function cacheStore(StoreTransfer $storeTransfer): void
     {
         static::$storeTransferCacheByStoreName[$storeTransfer->getName()] = $storeTransfer;

@@ -16,11 +16,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class StoreEntityManager extends AbstractEntityManager implements StoreEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function createStore(StoreTransfer $storeTransfer): StoreTransfer
     {
         $storeEntity = (new SpyStore())
@@ -33,11 +28,6 @@ class StoreEntityManager extends AbstractEntityManager implements StoreEntityMan
         return $storeTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function updateStore(StoreTransfer $storeTransfer): StoreTransfer
     {
         $this->getFactory()

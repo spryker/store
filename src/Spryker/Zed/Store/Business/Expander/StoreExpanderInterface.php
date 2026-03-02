@@ -11,11 +11,6 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface StoreExpanderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function expandStore(StoreTransfer $storeTransfer): StoreTransfer;
 
     /**

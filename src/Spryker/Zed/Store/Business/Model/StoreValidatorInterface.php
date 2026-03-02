@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\QuoteValidationResponseTransfer;
 
 interface StoreValidatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteValidationResponseTransfer
-     */
     public function validateQuoteStore(QuoteTransfer $quoteTransfer): QuoteValidationResponseTransfer;
 }

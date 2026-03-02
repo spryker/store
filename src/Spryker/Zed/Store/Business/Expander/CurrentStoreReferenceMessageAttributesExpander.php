@@ -26,21 +26,12 @@ class CurrentStoreReferenceMessageAttributesExpander implements CurrentStoreRefe
      */
     protected string $storeName;
 
-    /**
-     * @param \Spryker\Zed\Store\Business\Model\StoreReaderInterface $storeReader
-     * @param string $storeName
-     */
     public function __construct(StoreReaderInterface $storeReader, string $storeName)
     {
         $this->storeReader = $storeReader;
         $this->storeName = $storeName;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\MessageAttributesTransfer $messageAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\MessageAttributesTransfer
-     */
     public function expand(
         MessageAttributesTransfer $messageAttributesTransfer
     ): MessageAttributesTransfer {
@@ -56,11 +47,6 @@ class CurrentStoreReferenceMessageAttributesExpander implements CurrentStoreRefe
         return $messageAttributesTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\MessageAttributesTransfer $messageAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\MessageAttributesTransfer
-     */
     public function setStoreReference(MessageAttributesTransfer $messageAttributesTransfer): MessageAttributesTransfer
     {
         if ($messageAttributesTransfer->getStoreReference()) {

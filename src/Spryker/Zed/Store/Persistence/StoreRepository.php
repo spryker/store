@@ -18,11 +18,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class StoreRepository extends AbstractRepository implements StoreRepositoryInterface
 {
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function storeExists(string $name): bool
     {
         return $this->getFactory()
@@ -31,11 +26,6 @@ class StoreRepository extends AbstractRepository implements StoreRepositoryInter
             ->exists();
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreByName(string $storeName): ?StoreTransfer
     {
         $storeEntity = $this->getFactory()
@@ -51,11 +41,6 @@ class StoreRepository extends AbstractRepository implements StoreRepositoryInter
             ->mapStoreEntityToStoreTransfer($storeEntity, new StoreTransfer());
     }
 
-    /**
-     * @param int $idStore
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreById(int $idStore): ?StoreTransfer
     {
         $storeEntity = $this->getFactory()

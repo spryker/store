@@ -71,11 +71,6 @@ class StoreDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addStoreService(Container $container): Container
     {
         $container->set(static::SERVICE_STORE, function (Container $container) {
@@ -89,11 +84,6 @@ class StoreDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addStoreExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_STORE_EXPANDER, function () {
@@ -163,11 +153,6 @@ class StoreDependencyProvider extends AbstractDependencyProvider
         return Store::isDynamicStoreMode();
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addCurrentStoreProvidedFlag(Container $container): Container
     {
         $container->set(static::CURRENT_STORE_PROVIDED_FLAG, function (Container $container) {
@@ -177,11 +162,6 @@ class StoreDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addZedRequestClient(Container $container): Container
     {
         $container->set(static::CLIENT_ZED_REQUEST, function (Container $container) {

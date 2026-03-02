@@ -37,11 +37,6 @@ class StoreBusinessTester extends Actor
 
     use Stub;
 
-    /**
-     * @param string|null $storeReference
-     *
-     * @return \Generated\Shared\Transfer\MessageBrokerTestMessageTransfer
-     */
     public function createMessageBrokerTestMessageTransfer(?string $storeReference = null): MessageBrokerTestMessageTransfer
     {
         return (new MessageBrokerTestMessageBuilder())
@@ -55,21 +50,11 @@ class StoreBusinessTester extends Actor
             ->build();
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return \Generated\Shared\Transfer\MessageAttributesTransfer
-     */
     public function createMessageAttributesTransfer(array $seed = []): MessageAttributesTransfer
     {
         return (new MessageAttributesBuilder($seed))->build();
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return \Generated\Shared\Transfer\AccessTokenRequestTransfer
-     */
     public function createAccessTokenRequestTransfer(array $seed = []): AccessTokenRequestTransfer
     {
         return (new AccessTokenRequestBuilder($seed))->withAccessTokenRequestOptions(

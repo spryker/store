@@ -12,25 +12,10 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface StoreRepositoryInterface
 {
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function storeExists(string $name): bool;
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreByName(string $storeName): ?StoreTransfer;
 
-    /**
-     * @param int $idStore
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreById(int $idStore): ?StoreTransfer;
 
     /**

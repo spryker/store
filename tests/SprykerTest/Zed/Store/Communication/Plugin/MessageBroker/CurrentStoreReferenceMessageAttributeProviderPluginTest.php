@@ -42,9 +42,6 @@ class CurrentStoreReferenceMessageAttributeProviderPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testProvideMessageAttributesAddsStoreReferenceWhenItExists(): void
     {
         // Arrange
@@ -61,9 +58,6 @@ class CurrentStoreReferenceMessageAttributeProviderPluginTest extends Unit
         $this->assertSame(static::STORE_REFERENCE_NAME, $messageAttributesTransfer->getStoreReference());
     }
 
-    /**
-     * @return void
-     */
     public function testProvideMessageAttributesDoesNotAddStoreReferenceWhenTenantIdentifierDoesNotExists(): void
     {
         // Arrange
@@ -80,9 +74,6 @@ class CurrentStoreReferenceMessageAttributeProviderPluginTest extends Unit
         $this->assertNull($messageAttributesTransfer->getStoreReference());
     }
 
-    /**
-     * @return void
-     */
     public function testProvideMessageAttributesDoesNotAddStoreReferenceWhenDynamicMultiStoreEnabled(): void
     {
         // Arrange
@@ -99,13 +90,6 @@ class CurrentStoreReferenceMessageAttributeProviderPluginTest extends Unit
         $this->assertNull($messageAttributesTransfer->getStoreReference());
     }
 
-    /**
-     * @param bool $isDynamicStoreModeEnabled
-     * @param string $storeName
-     * @param string|null $storeReference
-     *
-     * @return void
-     */
     protected function mockCurrentStore(bool $isDynamicStoreModeEnabled, string $storeName, ?string $storeReference): void
     {
         $storeReaderMock = $this->getMockBuilder(StoreReader::class)

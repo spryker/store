@@ -26,21 +26,12 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
      */
     protected string $storeName;
 
-    /**
-     * @param \Spryker\Zed\Store\Business\Model\StoreReaderInterface $storeReader
-     * @param string $storeName
-     */
     public function __construct(StoreReaderInterface $storeReader, string $storeName)
     {
         $this->storeReader = $storeReader;
         $this->storeName = $storeName;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AccessTokenRequestTransfer $accessTokenRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\AccessTokenRequestTransfer
-     */
     public function expand(AccessTokenRequestTransfer $accessTokenRequestTransfer): AccessTokenRequestTransfer
     {
         if ($this->isStoreReferenceInOptions($accessTokenRequestTransfer)) {
@@ -61,11 +52,6 @@ class CurrentStoreReferenceAccessTokenRequestExpander implements CurrentStoreRef
         return $accessTokenRequestTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AccessTokenRequestTransfer $accessTokenRequestTransfer
-     *
-     * @return bool
-     */
     protected function isStoreReferenceInOptions(AccessTokenRequestTransfer $accessTokenRequestTransfer): bool
     {
         return $accessTokenRequestTransfer->getAccessTokenRequestOptions()

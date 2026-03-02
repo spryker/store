@@ -11,17 +11,7 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface StoreEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function createStore(StoreTransfer $storeTransfer): StoreTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function updateStore(StoreTransfer $storeTransfer): StoreTransfer;
 }

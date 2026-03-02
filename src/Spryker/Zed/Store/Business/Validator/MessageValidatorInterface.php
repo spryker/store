@@ -12,10 +12,5 @@ use Spryker\Shared\Kernel\Transfer\TransferInterface;
 
 interface MessageValidatorInterface
 {
-    /**
-     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $messageTransfer
-     *
-     * @return \Generated\Shared\Transfer\MessageValidationResponseTransfer
-     */
     public function validate(TransferInterface $messageTransfer): MessageValidationResponseTransfer;
 }

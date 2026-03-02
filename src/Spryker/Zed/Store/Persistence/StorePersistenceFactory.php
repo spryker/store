@@ -27,9 +27,6 @@ class StorePersistenceFactory extends AbstractPersistenceFactory
         return SpyStoreQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Persistence\Propel\Mapper\StoreMapper
-     */
     public function createStoreMapper(): StoreMapper
     {
         return new StoreMapper();

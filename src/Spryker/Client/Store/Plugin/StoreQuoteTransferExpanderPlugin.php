@@ -38,9 +38,6 @@ class StoreQuoteTransferExpanderPlugin extends AbstractPlugin implements QuoteTr
         return $quoteTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     protected function getCurrentStore(): StoreTransfer
     {
         if (static::$currentStoreTransfer === null) {

@@ -49,11 +49,6 @@ class StoreValidator implements StoreValidatorInterface
         $this->storePreUpdateValidationPlugins = $storePreUpdateValidationPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validatePreCreate(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = (new StoreResponseTransfer())
@@ -70,11 +65,6 @@ class StoreValidator implements StoreValidatorInterface
         return $storeResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validatePreUpdate(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = (new StoreResponseTransfer())
@@ -91,11 +81,6 @@ class StoreValidator implements StoreValidatorInterface
         return $storeResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validateStoreNameIsUnique(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = (new StoreResponseTransfer())->setIsSuccessful(true);
@@ -111,12 +96,6 @@ class StoreValidator implements StoreValidatorInterface
         return $storeResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $existingStoreTransfer
-     *
-     * @return bool
-     */
     protected function isStoreNameAllowed(StoreTransfer $storeTransfer, ?StoreTransfer $existingStoreTransfer): bool
     {
         return $existingStoreTransfer
@@ -125,12 +104,6 @@ class StoreValidator implements StoreValidatorInterface
             );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreResponseTransfer $sourceStoreResponseTransfer
-     * @param \Generated\Shared\Transfer\StoreResponseTransfer $storeResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function mergeStoreResponseTransfers(
         StoreResponseTransfer $sourceStoreResponseTransfer,
         StoreResponseTransfer $storeResponseTransfer

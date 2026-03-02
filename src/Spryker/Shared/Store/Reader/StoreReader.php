@@ -71,11 +71,6 @@ class StoreReader implements StoreReaderInterface
         return $availableLocaleIsoCodes[0] ?? null;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     protected function expandStore(StoreTransfer $storeTransfer): StoreTransfer
     {
         foreach ($this->storeExpanders as $storeExpander) {

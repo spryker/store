@@ -23,9 +23,6 @@ class StoreStub implements StoreStubInterface
      */
     protected StoreToZedRequestClientInterface $zedRequestClient;
 
-    /**
-     * @param \Spryker\Client\Store\Dependency\Client\StoreToZedRequestClientInterface $zedRequestClient
-     */
     public function __construct(StoreToZedRequestClientInterface $zedRequestClient)
     {
         $this->zedRequestClient = $zedRequestClient;

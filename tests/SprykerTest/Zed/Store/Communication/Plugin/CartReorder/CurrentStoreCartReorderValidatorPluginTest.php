@@ -44,9 +44,6 @@ class CurrentStoreCartReorderValidatorPluginTest extends Unit
      */
     protected StoreCommunicationTester $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -57,9 +54,6 @@ class CurrentStoreCartReorderValidatorPluginTest extends Unit
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldAddErrorToCartReorderResponseWhenCurrentStoreIsDifferent(): void
     {
         // Arrange
@@ -78,9 +72,6 @@ class CurrentStoreCartReorderValidatorPluginTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testShouldAddErrorToCartReorderResponseWhenQuoteStoreIsDifferent(): void
     {
         // Arrange
@@ -99,9 +90,6 @@ class CurrentStoreCartReorderValidatorPluginTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testShouldAddErrorToCartReorderResponseWhenOrderStoreIsDifferent(): void
     {
         // Arrange
@@ -175,12 +163,6 @@ class CurrentStoreCartReorderValidatorPluginTest extends Unit
         ];
     }
 
-    /**
-     * @param string $orderStoreName
-     * @param string $quoteStoreName
-     *
-     * @return \Generated\Shared\Transfer\CartReorderTransfer
-     */
     protected function createCartReorderTransfer(string $orderStoreName, string $quoteStoreName): CartReorderTransfer
     {
         $orderTransfer = (new OrderTransfer())->setStore($orderStoreName);

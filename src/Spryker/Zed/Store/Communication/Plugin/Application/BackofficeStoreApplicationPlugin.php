@@ -65,9 +65,6 @@ class BackofficeStoreApplicationPlugin extends AbstractPlugin implements Applica
         return $container;
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     protected function getRequest(): Request
     {
         return Request::createFromGlobals();

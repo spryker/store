@@ -12,24 +12,9 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface StoreValidatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validatePreCreate(StoreTransfer $storeTransfer): StoreResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validatePreUpdate(StoreTransfer $storeTransfer): StoreResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validateStoreNameIsUnique(StoreTransfer $storeTransfer): StoreResponseTransfer;
 }

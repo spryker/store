@@ -28,19 +28,11 @@ class StoreValidator implements StoreValidatorInterface
      */
     protected $storeReader;
 
-    /**
-     * @param \Spryker\Zed\Store\Business\Model\StoreReaderInterface $storeReader
-     */
     public function __construct(StoreReaderInterface $storeReader)
     {
         $this->storeReader = $storeReader;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteValidationResponseTransfer
-     */
     public function validateQuoteStore(QuoteTransfer $quoteTransfer): QuoteValidationResponseTransfer
     {
         $quoteValidationResponseTransfer = (new QuoteValidationResponseTransfer())->setIsSuccessful(true);
@@ -58,12 +50,6 @@ class StoreValidator implements StoreValidatorInterface
         return $quoteValidationResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteValidationResponseTransfer $quoteValidationResponseTransfer
-     * @param string $errorMessage
-     *
-     * @return \Generated\Shared\Transfer\QuoteValidationResponseTransfer
-     */
     protected function addValidationError(
         QuoteValidationResponseTransfer $quoteValidationResponseTransfer,
         string $errorMessage

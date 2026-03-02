@@ -91,11 +91,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = $this->addStore($container);
@@ -120,11 +115,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCurrentStore(Container $container): Container
     {
         $container->set(static::STORE_CURRENT, function (Container $container) {
@@ -138,11 +128,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addDynamicStoreMode(Container $container): Container
     {
         $container->set(static::DYNAMIC_STORE_MODE, function () {
@@ -152,11 +137,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCurrentStoreProvidedFlag(Container $container): Container
     {
         $container->set(static::CURRENT_STORE_PROVIDED_FLAG, function (Container $container) {
@@ -166,11 +146,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStorePreCreatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_STORE_PRE_CREATE_VALIDATION, function () {
@@ -180,11 +155,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStorePreUpdatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_STORE_PRE_UPDATE_VALIDATION, function () {
@@ -210,11 +180,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStorePostCreatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_STORE_POST_CREATE, function () {
@@ -224,11 +189,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStorePostUpdatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_STORE_POST_UPDATE, function () {
@@ -264,11 +224,6 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
         return Store::getInstance()->getStoreName();
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreCollectionExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_STORE_COLLECTION_EXPANDER, function () {
