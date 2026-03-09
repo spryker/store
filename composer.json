@@ -25,6 +25,7 @@
         "spryker/container": "*",
         "spryker/country": "*",
         "spryker/currency": "*",
+        "spryker/glossary-storage": "*",
         "spryker/locale": "*",
         "spryker/propel": "*",
         "spryker/quote": "*",
