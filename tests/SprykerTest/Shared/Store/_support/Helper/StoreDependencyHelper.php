@@ -71,12 +71,11 @@ class StoreDependencyHelper extends Module
     {
         parent::_before($test);
 
-        $this->getContainerHelper()
-            ->getContainer()
-            ->set(static::SERVICE_STORE, static::DEFAULT_STORE);
-        $this->getContainerHelper()
-            ->getContainer()
-            ->set(static::SERVICE_LOCALE, static::LOCALE_EN);
+        $container = $this->getContainerHelper()
+            ->getContainer();
+
+        $container->set(static::SERVICE_STORE, static::DEFAULT_STORE);
+        $container->set(static::SERVICE_LOCALE, static::LOCALE_EN);
 
         $this->setDependency(ZedStoreDependencyProvider::PLUGINS_STORE_COLLECTION_EXPANDER, [
             new CurrencyStoreCollectionExpanderPlugin(),

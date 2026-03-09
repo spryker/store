@@ -8,6 +8,9 @@
 namespace SprykerTest\Glue\Store\StorefrontApi;
 
 use Codeception\Stub;
+use Generated\Shared\Transfer\StoreTransfer;
+use Spryker\Client\GlossaryStorage\GlossaryStorageClientInterface;
+use Spryker\Client\Store\StoreClientInterface;
 use Spryker\Client\StoreStorage\StoreStorageClientInterface;
 use SprykerTest\ApiPlatform\Test\StorefrontApiTestCase;
 use SprykerTest\Glue\Store\StorefrontApiTester;
@@ -29,6 +32,8 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
     public function testGivenExistingStoreWhenRetrievingViaGetThenStoreDataIsReturned(): void
     {
         // Arrange
+        $this->mockStoreClient();
+
         $storeStorageClientStub = Stub::makeEmpty(StoreStorageClientInterface::class, [
             'getStoreNames' => ['DE'],
         ]);
@@ -46,6 +51,8 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
     public function testGivenMultipleStoresWhenRetrievingCollectionViaGetThenAllStoresAreReturned(): void
     {
         // Arrange
+        $this->mockStoreClient();
+
         $storeStorageClientStub = Stub::makeEmpty(StoreStorageClientInterface::class, [
             'getStoreNames' => ['DE', 'AT'],
         ]);
@@ -64,13 +71,23 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
 
     public function testGivenNonExistentStoreWhenRetrievingViaGetThen404IsReturned(): void
     {
-        // Act
+        // Arrange
+        $this->mockStoreClient();
+
         $storeStorageClientStub = Stub::makeEmpty(StoreStorageClientInterface::class, [
             'getStoreNames' => [],
         ]);
 
-        $this->getContainer()->set(StoreStorageClientInterface::class, $storeStorageClientStub);
+        $glossaryStub = Stub::makeEmpty(GlossaryStorageClientInterface::class, [
+            'translate' => function (string $id): string {
+                return sprintf('%s-translated-by-mock', $id);
+            },
+        ]);
 
+        $this->getContainer()->set(StoreStorageClientInterface::class, $storeStorageClientStub);
+        $this->getContainer()->set(GlossaryStorageClientInterface::class, $glossaryStub);
+
+        // Act
         $this->createClient()->request('GET', '/stores/NON-EXISTENT-STORE');
 
         // Assert
@@ -80,6 +97,8 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
     public function testGivenPaginationParamsWhenRetrievingCollectionThenPaginatedResultsAreReturned(): void
     {
         // Arrange
+        $this->mockStoreClient();
+
         $storeStorageClientStub = Stub::makeEmpty(StoreStorageClientInterface::class, [
             'getStoreNames' => ['DE', 'AT'],
         ]);
@@ -93,5 +112,17 @@ class StoresStorefrontApiTest extends StorefrontApiTestCase
         $this->assertResponseIsSuccessful();
         $response = json_decode($this->getClient()->getResponse()->getContent(), true);
         $this->assertIsArray($response['data']);
+    }
+
+    protected function mockStoreClient(): void
+    {
+        $storeTransfer = new StoreTransfer();
+        $storeTransfer->setAvailableLocaleIsoCodes(['de' => 'de_DE', 'en' => 'en_US']);
+
+        $clientStub = Stub::makeEmpty(StoreClientInterface::class, [
+            'getCurrentStore' => $storeTransfer,
+        ]);
+
+        $this->getContainer()->set(StoreClientInterface::class, $clientStub);
     }
 }
