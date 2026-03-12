@@ -22,4 +22,6 @@ interface StoreConstants
      * @var string
      */
     public const STORE_NAME_REFERENCE_MAP = 'STORE:STORE_NAME_REFERENCE_MAP';
+
+    public const string SCOPE_STORE = 'store';
 }

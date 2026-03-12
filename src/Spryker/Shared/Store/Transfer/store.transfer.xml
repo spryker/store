@@ -141,4 +141,13 @@
         <property name="timezone" type="string"/>
     </transfer>
 
+    <transfer name="ConfigurationScope">
+        <property name="key" type="string"/>
+        <property name="identifier" type="string"/>
+    </transfer>
+
+    <transfer name="ConfigurationValueRequest">
+        <property name="scopes" type="ConfigurationScope[]" singular="scope"/>
+    </transfer>
+
 </transfers>
