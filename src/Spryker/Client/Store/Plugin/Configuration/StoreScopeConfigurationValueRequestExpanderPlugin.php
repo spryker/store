@@ -36,6 +36,10 @@ class StoreScopeConfigurationValueRequestExpanderPlugin extends AbstractPlugin i
             }
         }
 
+        if (!$this->getClient()->isCurrentStoreDefined()) {
+            return $configurationValueRequestTransfer;
+        }
+
         return $configurationValueRequestTransfer->addScope(
             (new ConfigurationScopeTransfer())
                 ->setKey(StoreConstants::SCOPE_STORE)
