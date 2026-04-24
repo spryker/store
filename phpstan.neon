@@ -6,6 +6,15 @@ parameters:
         - message: '#PHPDoc tag @return contains generic type .+DataTransformerInterface<.+> but interface .+DataTransformerInterface is not generic#'
         - message: '#PHPDoc tag @implements contains generic type .+DataTransformerInterface<.+> but interface .+DataTransformerInterface is not generic#'
         - '#Method Spryker\\Zed\\Store\\Communication\\Plugin\\MessageBroker\\StoreReferenceMessageValidatorPlugin::isValid\(\) should return bool but returns bool\|null.#'
+#        API Platform Generated resource classes are intentionally excluded from generation
+#        (see config/GlueBackend/packages/spryker_api_platform.php and config/GlueStorefront/packages/spryker_api_platform.php).
+#        Store API Platform implementation will be migrated in a dedicated module.
+        - '#invalid type Generated\\Api\\Backend\\StoresBackendResource\.#'
+        - '#invalid return type Generated\\Api\\Backend\\StoresBackendResource\.#'
+        - '#unknown class Generated\\Api\\Backend\\StoresBackendResource\.#'
+        - '#invalid type Generated\\Api\\Storefront\\StoresStorefrontResource\.#'
+        - '#invalid return type Generated\\Api\\Storefront\\StoresStorefrontResource\.#'
+        - '#unknown class Generated\\Api\\Storefront\\StoresStorefrontResource\.#'
         -
             identifier: instanceof.alwaysTrue
         -
