@@ -62,6 +62,7 @@ class StoreBusinessFactory extends AbstractBusinessFactory
             $this->createStoreDataValidator(),
             $this->getStorePostCreatePlugins(),
             $this->getStorePostUpdatePlugins(),
+            $this->createStoreReader(),
         );
     }
 

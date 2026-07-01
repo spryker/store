@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\StoreResponseTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
+use Spryker\Zed\Store\Business\Model\StoreReaderInterface;
 use Spryker\Zed\Store\Business\Validator\StoreValidatorInterface;
 use Spryker\Zed\Store\Persistence\StoreEntityManagerInterface;
 use Spryker\Zed\Store\Persistence\StoreRepositoryInterface;
@@ -25,9 +26,6 @@ class StoreWriter implements StoreWriterInterface
     protected const ERROR_MESSAGE_STORE_IS_NOT_FOUND = 'Store not found.';
 
     /**
-     * @param \Spryker\Zed\Store\Persistence\StoreRepositoryInterface $storeRepository
-     * @param \Spryker\Zed\Store\Persistence\StoreEntityManagerInterface $storeEntityManager
-     * @param \Spryker\Zed\Store\Business\Validator\StoreValidatorInterface $storeValidator
      * @param array<\Spryker\Zed\StoreExtension\Dependency\Plugin\StorePostCreatePluginInterface> $storePostCreatePlugins
      * @param array<\Spryker\Zed\StoreExtension\Dependency\Plugin\StorePostUpdatePluginInterface> $storePostUpdatePlugins
      */
@@ -36,12 +34,15 @@ class StoreWriter implements StoreWriterInterface
         protected StoreEntityManagerInterface $storeEntityManager,
         protected StoreValidatorInterface $storeValidator,
         protected array $storePostCreatePlugins,
-        protected array $storePostUpdatePlugins
+        protected array $storePostUpdatePlugins,
+        protected StoreReaderInterface $storeReader,
     ) {
     }
 
     public function createStore(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
+        $this->storeReader->clearMemoryCache();
+
         return $this->getTransactionHandler()->handleTransaction(function () use ($storeTransfer) {
             return $this->executeCreateStoreTransaction($storeTransfer);
         });
@@ -49,6 +50,8 @@ class StoreWriter implements StoreWriterInterface
 
     public function updateStore(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
+        $this->storeReader->clearMemoryCache();
+
         return $this->getTransactionHandler()->handleTransaction(function () use ($storeTransfer) {
             return $this->executeUpdateStoreTransaction($storeTransfer);
         });

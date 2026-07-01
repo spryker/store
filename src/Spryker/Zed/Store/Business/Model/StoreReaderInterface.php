@@ -67,4 +67,6 @@ interface StoreReaderInterface
     public function getStoreCollection(StoreCriteriaTransfer $storeCriteriaTransfer): StoreCollectionTransfer;
 
     public function getStoreByStoreReference(string $storeReference): StoreTransfer;
+
+    public function clearMemoryCache(): void;
 }

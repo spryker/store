@@ -10,9 +10,12 @@ namespace SprykerTest\Zed\Store\Helper;
 use Codeception\Module;
 use Codeception\TestInterface;
 use Generated\Shared\Transfer\StoreTransfer;
+use ReflectionProperty;
 use Spryker\Zed\Country\Communication\Plugin\Store\CountryStoreCollectionExpanderPlugin;
 use Spryker\Zed\Currency\Communication\Plugin\Store\CurrencyStoreCollectionExpanderPlugin;
 use Spryker\Zed\Locale\Communication\Plugin\Store\LocaleStoreCollectionExpanderPlugin;
+use Spryker\Zed\Store\Business\Cache\StoreCache;
+use Spryker\Zed\Store\Business\Model\StoreReader;
 use Spryker\Zed\Store\StoreDependencyProvider;
 use SprykerTest\Service\Container\Helper\ContainerHelperTrait;
 use SprykerTest\Shared\Testify\Helper\DependencyHelperTrait;
@@ -74,6 +77,23 @@ class StoreDependencyHelper extends Module
             new CountryStoreCollectionExpanderPlugin(),
             new LocaleStoreCollectionExpanderPlugin(),
         ]);
+
+        $this->clearStoreCache();
+    }
+
+    protected function clearStoreCache(): void
+    {
+        $reflectionProperty = new ReflectionProperty(StoreCache::class, 'storeTransfersCacheByStoreId');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue(null, []);
+
+        $reflectionProperty = new ReflectionProperty(StoreCache::class, 'storeTransferCacheByStoreName');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue(null, []);
+
+        $reflectionProperty = new ReflectionProperty(StoreReader::class, 'memoryCache');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue(null, []);
     }
 
     /**

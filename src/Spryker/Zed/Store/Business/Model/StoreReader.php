@@ -20,6 +20,13 @@ use Spryker\Zed\Store\Persistence\StoreRepositoryInterface;
 
 class StoreReader implements StoreReaderInterface
 {
+    protected const string CACHE_KEY_ALL_STORES = 'all_stores';
+
+    /**
+     * @var array<string, mixed>
+     */
+    protected static array $memoryCache = [];
+
     /**
      * @var \Spryker\Zed\Store\Persistence\StoreRepositoryInterface
      */
@@ -66,18 +73,26 @@ class StoreReader implements StoreReaderInterface
      */
     public function getAllStores()
     {
+        if (isset(static::$memoryCache[static::CACHE_KEY_ALL_STORES])) {
+            return static::$memoryCache[static::CACHE_KEY_ALL_STORES];
+        }
+
         if (!$this->isDynamicMultiStoreEnabled) {
-            return $this->getStoreTransfersByStoreNames($this->getAllStoreNames());
+            $stores = $this->getStoreTransfersByStoreNames($this->getAllStoreNames());
+            static::$memoryCache[static::CACHE_KEY_ALL_STORES] = $stores;
+
+            return $stores;
         }
 
         $storeTransfers = $this->getStoreTransfersByStoreNames(
             array_filter($this->storeRepository->getStoreNamesByCriteria(new StoreCriteriaTransfer())),
         );
-        $stores = $this->storeExpander->expandStores($storeTransfers);
 
-        $this->cacheStoreTransfers($stores);
+        $this->cacheStoreTransfers($storeTransfers);
 
-        return $stores;
+        static::$memoryCache[static::CACHE_KEY_ALL_STORES] = $storeTransfers;
+
+        return $storeTransfers;
     }
 
     /**
@@ -194,7 +209,9 @@ class StoreReader implements StoreReaderInterface
                 return $this->storeReferenceReader->extendStoreByStoreReference($storeTransfer);
             }, $resolvedStoreTransfers);
 
-            $this->cacheStoreTransfers($storeTransfers);
+            if ($withExpanders !== false) {
+                $this->cacheStoreTransfers($storeTransfers);
+            }
         }
 
         return $resolvedStoreTransfers;
@@ -279,16 +296,31 @@ class StoreReader implements StoreReaderInterface
 
     public function getStoreCollection(StoreCriteriaTransfer $storeCriteriaTransfer): StoreCollectionTransfer
     {
+        $cacheKey = md5(serialize($storeCriteriaTransfer->toArray()));
+
+        if (isset(static::$memoryCache[$cacheKey])) {
+            return static::$memoryCache[$cacheKey];
+        }
+
         $withExpanders = $storeCriteriaTransfer->getStoreConditions() && $storeCriteriaTransfer->getStoreConditions()->getWithExpanders() !== null
             ? $storeCriteriaTransfer->getStoreConditions()->getWithExpanders()
             : true;
 
-        return (new StoreCollectionTransfer())->setStores(new ArrayObject(
+        $storeCollectionTransfer = (new StoreCollectionTransfer())->setStores(new ArrayObject(
             $this->getStoreTransfersByStoreNames(
                 $this->storeRepository->getStoreNamesByCriteria($storeCriteriaTransfer),
                 $withExpanders,
             ),
         ));
+
+        static::$memoryCache[$cacheKey] = $storeCollectionTransfer;
+
+        return $storeCollectionTransfer;
+    }
+
+    public function clearMemoryCache(): void
+    {
+        static::$memoryCache = [];
     }
 
     /**

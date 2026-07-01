@@ -15,6 +15,7 @@ use Orm\Zed\Store\Persistence\SpyStoreQuery;
 use ReflectionProperty;
 use Spryker\Zed\Store\Business\Cache\StoreCache;
 use Spryker\Zed\Store\Business\Expander\StoreExpanderInterface;
+use Spryker\Zed\Store\Business\Model\StoreReader;
 use Spryker\Zed\Store\Business\StoreBusinessFactory;
 use Spryker\Zed\Store\Business\StoreFacadeInterface;
 use SprykerTest\Shared\Testify\Helper\DataCleanupHelperTrait;
@@ -113,6 +114,10 @@ class StoreDataHelper extends Module
         $reflectionProperty->setValue(null, []);
 
         $reflectionProperty = new ReflectionProperty(StoreCache::class, 'storeTransferCacheByStoreName');
+        $reflectionProperty->setAccessible(true);
+        ($reflectionProperty)->setValue(null, []);
+
+        $reflectionProperty = new ReflectionProperty(StoreReader::class, 'memoryCache');
         $reflectionProperty->setAccessible(true);
         ($reflectionProperty)->setValue(null, []);
     }
