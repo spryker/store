@@ -35,7 +35,6 @@ class StoreReferenceHelper extends Module
 
         foreach ($staticProperties as $propertyName => $propertyValue) {
             $reflectedProperty = $reflectedStoreCache->getProperty($propertyName);
-            $reflectedProperty->setAccessible(true);
             $reflectedProperty->setValue([]);
         }
     }

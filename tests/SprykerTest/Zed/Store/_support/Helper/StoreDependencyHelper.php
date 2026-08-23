@@ -84,15 +84,12 @@ class StoreDependencyHelper extends Module
     protected function clearStoreCache(): void
     {
         $reflectionProperty = new ReflectionProperty(StoreCache::class, 'storeTransfersCacheByStoreId');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null, []);
 
         $reflectionProperty = new ReflectionProperty(StoreCache::class, 'storeTransferCacheByStoreName');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null, []);
 
         $reflectionProperty = new ReflectionProperty(StoreReader::class, 'memoryCache');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null, []);
     }
 
