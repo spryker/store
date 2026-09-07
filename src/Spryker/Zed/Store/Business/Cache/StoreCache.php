@@ -34,8 +34,10 @@ class StoreCache implements StoreCacheInterface
 
     public function cacheStore(StoreTransfer $storeTransfer): void
     {
-        static::$storeTransferCacheByStoreName[$storeTransfer->getName()] = $storeTransfer;
-        static::$storeTransfersCacheByStoreId[$storeTransfer->getIdStore()] = $storeTransfer;
+        $cachedStoreTransfer = clone $storeTransfer;
+
+        static::$storeTransferCacheByStoreName[$storeTransfer->getName()] = $cachedStoreTransfer;
+        static::$storeTransfersCacheByStoreId[$storeTransfer->getIdStore()] = $cachedStoreTransfer;
     }
 
     /**
@@ -51,7 +53,7 @@ class StoreCache implements StoreCacheInterface
             throw new StoreCacheNotFoundException();
         }
 
-        return static::$storeTransfersCacheByStoreId[$idStore];
+        return clone static::$storeTransfersCacheByStoreId[$idStore];
     }
 
     /**
@@ -67,6 +69,12 @@ class StoreCache implements StoreCacheInterface
             throw new StoreCacheNotFoundException();
         }
 
-        return static::$storeTransferCacheByStoreName[$storeName];
+        return clone static::$storeTransferCacheByStoreName[$storeName];
+    }
+
+    public function clearCache(): void
+    {
+        static::$storeTransfersCacheByStoreId = [];
+        static::$storeTransferCacheByStoreName = [];
     }
 }

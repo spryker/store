@@ -321,6 +321,8 @@ class StoreReader implements StoreReaderInterface
     public function clearMemoryCache(): void
     {
         static::$memoryCache = [];
+
+        $this->storeCache->clearCache();
     }
 
     /**

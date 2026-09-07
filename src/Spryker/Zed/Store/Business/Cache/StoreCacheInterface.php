@@ -20,4 +20,6 @@ interface StoreCacheInterface
     public function getStoreByStoreId(int $idStore): StoreTransfer;
 
     public function getStoreByStoreName(string $storeName): StoreTransfer;
+
+    public function clearCache(): void;
 }
