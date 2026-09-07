@@ -27,6 +27,8 @@ use Spryker\Zed\Store\Business\Model\StoreValidator;
 use Spryker\Zed\Store\Business\Model\StoreValidatorInterface;
 use Spryker\Zed\Store\Business\Reader\StoreReferenceReader;
 use Spryker\Zed\Store\Business\Reader\StoreReferenceReaderInterface;
+use Spryker\Zed\Store\Business\Validator\CustomerStoreValidator;
+use Spryker\Zed\Store\Business\Validator\CustomerStoreValidatorInterface;
 use Spryker\Zed\Store\Business\Validator\MessageValidator;
 use Spryker\Zed\Store\Business\Validator\MessageValidatorInterface;
 use Spryker\Zed\Store\Business\Validator\StoreValidator as StoreDataValidator;
@@ -97,6 +99,11 @@ class StoreBusinessFactory extends AbstractBusinessFactory
     public function createStoreValidator(): StoreValidatorInterface
     {
         return new StoreValidator($this->createStoreReader());
+    }
+
+    public function createCustomerStoreValidator(): CustomerStoreValidatorInterface
+    {
+        return new CustomerStoreValidator($this->getRepository());
     }
 
     public function createStoreCache(): StoreCacheInterface
