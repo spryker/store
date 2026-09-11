@@ -15,27 +15,40 @@ use Spryker\Client\Store\Reader\StoreReader as ClientStoreReader;
 use Spryker\Client\Store\Zed\StoreStub;
 use Spryker\Client\Store\Zed\StoreStubInterface;
 use Spryker\Shared\Store\Reader\StoreReader;
+use Spryker\Shared\Store\Reader\StoreReaderInterface;
 
 /**
  * @method \Spryker\Client\Store\StoreConfig getConfig()
  */
 class StoreFactory extends AbstractFactory
 {
+    protected StoreReaderInterface|null $storeReader = null;
+
+    protected static ?string $storeService = null;
+
     /**
      * @return \Spryker\Shared\Store\Reader\StoreReaderInterface
      */
     public function createStoreReader()
     {
-        if (!$this->getIsDynamicStoreModeEnabled()) {
-            return $this->createSharedStoreReader();
+        if ($this->storeReader === null) {
+            if (!$this->getIsDynamicStoreModeEnabled()) {
+                return $this->storeReader = $this->createSharedStoreReader();
+            }
+
+            return $this->storeReader = new ClientStoreReader($this->getStoreCollectionExpanderPlugins());
         }
 
-        return new ClientStoreReader($this->getStoreCollectionExpanderPlugins());
+        return $this->storeReader;
     }
 
     public function getStoreService(): string
     {
-        return $this->getProvidedDependency(StoreDependencyProvider::SERVICE_STORE);
+        if (static::$storeService === null) {
+            return static::$storeService = $this->getProvidedDependency(StoreDependencyProvider::SERVICE_STORE);
+        }
+
+        return static::$storeService;
     }
 
     /**
