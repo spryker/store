@@ -269,6 +269,64 @@ class StoreFacadeTest extends Unit
         $this->assertSame($storeTransfer->getIdStore(), $resultStore->getIdStore());
     }
 
+    public function testCreateStoreDefaultsToVisibleToCustomerWhenNotProvided(): void
+    {
+        // Arrange
+        $storeFacade = $this->createStoreFacade();
+        $storeTransfer = (new StoreTransfer())->setName('NEW_VISIBLE_STORE');
+
+        // Act
+        $storeResponseTransfer = $storeFacade->createStore($storeTransfer);
+
+        // Assert
+        $this->assertTrue($storeResponseTransfer->getIsSuccessful());
+        $this->assertTrue($storeResponseTransfer->getStoreOrFail()->getIsVisibleToCustomer());
+    }
+
+    public function testCreateStoreRespectsExplicitIsVisibleToCustomerFalse(): void
+    {
+        // Arrange
+        $storeFacade = $this->createStoreFacade();
+        $storeTransfer = (new StoreTransfer())
+            ->setName('NEW_HIDDEN_STORE')
+            ->setIsVisibleToCustomer(false);
+
+        // Act
+        $storeResponseTransfer = $storeFacade->createStore($storeTransfer);
+
+        // Assert
+        $this->assertTrue($storeResponseTransfer->getIsSuccessful());
+        $this->assertFalse($storeResponseTransfer->getStoreOrFail()->getIsVisibleToCustomer());
+    }
+
+    public function testGetStoreCollectionByCriteriaExcludesStoresNotVisibleOnStorefrontWhenRequested(): void
+    {
+        // Arrange
+        $visibleStoreTransfer = $this->tester->haveStore([StoreTransfer::NAME => 'VISIBLE_STORE']);
+        $hiddenStoreTransfer = $this->tester->haveStore([
+            StoreTransfer::NAME => 'HIDDEN_STORE',
+            StoreTransfer::IS_VISIBLE_TO_CUSTOMER => false,
+        ]);
+        $this->tester->setDependency(StoreDependencyProvider::STORE, $this->getStoreToStoreInterface());
+        $storeFacade = $this->createStoreFacade();
+        $storeCriteriaTransfer = (new StoreCriteriaTransfer())
+            ->setStoreConditions((new StoreConditionsTransfer())
+                ->setStoreIds([$visibleStoreTransfer->getIdStoreOrFail(), $hiddenStoreTransfer->getIdStoreOrFail()])
+                ->setIsVisibleToCustomer(true));
+
+        // Act
+        $storeCollectionTransfer = $storeFacade->getStoreCollection($storeCriteriaTransfer);
+
+        // Assert
+        $foundStoreNames = array_map(
+            fn (StoreTransfer $storeTransfer): ?string => $storeTransfer->getName(),
+            $storeCollectionTransfer->getStores()->getArrayCopy(),
+        );
+
+        $this->assertContains($visibleStoreTransfer->getNameOrFail(), $foundStoreNames);
+        $this->assertNotContains($hiddenStoreTransfer->getNameOrFail(), $foundStoreNames);
+    }
+
     public function testGetStoreCollectionByCriteriaShouldReturnStore(): void
     {
         //Arrange

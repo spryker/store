@@ -1,2 +1,4 @@
 Administration,Administration
 "A store with the same name already exists.","A store with the same name already exists."
+"Visible to Customer","Visible to Customer"
+"When disabled, the store is hidden from customers on the storefront (Yves) and in public Glue APIs until you enable it here.","When disabled, the store is hidden from customers on the storefront (Yves) and in public Glue APIs until you enable it here."

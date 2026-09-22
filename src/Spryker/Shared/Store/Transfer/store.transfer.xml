@@ -15,6 +15,7 @@
         <property name="timezone" type="string"/>
         <property name="storeReference" type="string" deprecated="Will be removed without replacement."/>
         <property name="applicationContextCollection" type="StoreApplicationContextCollection" strict="true"/>
+        <property name="isVisibleToCustomer" type="bool"/>
     </transfer>
 
     <transfer name="StoreResponse">
@@ -54,6 +55,7 @@
     <transfer name="StoreConditions">
         <property name="storeIds" type="array" singular="storeId"/>
         <property name="withExpanders" type="bool"/>
+        <property name="isVisibleToCustomer" type="bool"/>
     </transfer>
 
     <transfer name="Pagination">

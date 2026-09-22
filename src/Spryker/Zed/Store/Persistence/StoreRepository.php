@@ -121,11 +121,20 @@ class StoreRepository extends AbstractRepository implements StoreRepositoryInter
             $storeQuery->filterByPrimaryKeys($storeConditionsTransfer->getStoreIds());
         }
 
+        if ($storeConditionsTransfer && $storeConditionsTransfer->getIsVisibleToCustomer() && $this->isVisibleToCustomerSupported()) {
+            $storeQuery->filterByIsVisibleToCustomer(true);
+        }
+
         if ($paginationTransfer) {
             $storeQuery->setOffset($paginationTransfer->getOffsetOrFail())
                 ->setOffset($paginationTransfer->getOffsetOrFail());
         }
 
         return $storeQuery->find()->getData();
+    }
+
+    public function isVisibleToCustomerSupported(): bool
+    {
+        return defined(SpyStoreTableMap::class . '::COL_IS_VISIBLE_TO_CUSTOMER');
     }
 }

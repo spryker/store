@@ -16,8 +16,11 @@ interface StoreClientInterface
     /**
      * Specification:
      * - Retrieves the current Store as a transfer object.
+     * - Throws when the current store could not be resolved (e.g. it was never published to Storage).
      *
      * @api
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
@@ -27,10 +30,13 @@ interface StoreClientInterface
      * Specification:
      * - Retrieves a Store as a transfer object.
      * - Executes stack of {@link \Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface} plugins.
+     * - Throws when the requested store could not be resolved (e.g. it was never published to Storage).
      *
      * @api
      *
      * @param string $storeName
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */

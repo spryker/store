@@ -60,4 +60,17 @@ class StoreConfig extends AbstractBundleConfig
         // To have BC with StoreReference configuration
         return $this->get('STORE_REFERENCE:STORE_NAME_REFERENCE_MAP', []);
     }
+
+    /**
+     * Specification:
+     * - Enables the optional `is_visible_to_customer` column on the `spy_store` table.
+     * - When enabled, the `VisibleToCustomer` schema folder is merged during `propel:install`.
+     * - Consumers relying on storefront visibility control require this to be enabled.
+     *
+     * @api
+     */
+    public function isVisibleToCustomerEnabled(): bool
+    {
+        return false;
+    }
 }

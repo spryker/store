@@ -59,6 +59,8 @@ class StoreWriter implements StoreWriterInterface
 
     protected function executeCreateStoreTransaction(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
+        $storeTransfer->setIsVisibleToCustomer($storeTransfer->getIsVisibleToCustomer() ?? true);
+
         $storeResponseTransfer = $this->storeValidator->validateStoreNameIsUnique($storeTransfer);
 
         if (!$storeResponseTransfer->getIsSuccessful()) {

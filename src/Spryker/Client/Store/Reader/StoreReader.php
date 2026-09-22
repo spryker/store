@@ -12,6 +12,7 @@ use Spryker\Client\Store\Reader\StoreReaderInterface as ClientStoreReaderInterfa
 use Spryker\Client\Store\StoreDependencyProvider;
 use Spryker\Service\Container\Attributes\Stack;
 use Spryker\Shared\Store\Reader\StoreReaderInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StoreReader implements StoreReaderInterface, ClientStoreReaderInterface
 {
@@ -35,6 +36,8 @@ class StoreReader implements StoreReaderInterface, ClientStoreReaderInterface
     /**
      * @param string $storeName
      *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
     public function getStoreByName($storeName): StoreTransfer
@@ -45,9 +48,14 @@ class StoreReader implements StoreReaderInterface, ClientStoreReaderInterface
 
         $storeTransfer = (new StoreTransfer())
             ->setName($storeName);
+        $unexpandedStoreData = $storeTransfer->toArray();
 
         foreach ($this->storeExpanderPlugins as $storeExpanderPlugin) {
             $storeTransfer = $storeExpanderPlugin->expand($storeTransfer);
+        }
+
+        if ($storeTransfer->toArray() === $unexpandedStoreData) {
+            throw new NotFoundHttpException('Store not found.');
         }
 
         static::$storeCache[$storeName] = $storeTransfer;

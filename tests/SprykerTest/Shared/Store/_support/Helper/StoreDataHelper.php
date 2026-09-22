@@ -64,6 +64,16 @@ class StoreDataHelper extends Module
         $storeEntity = $this->getStorePropelQuery()
             ->filterByName($storeTransfer->getName())
             ->findOneOrCreate();
+        if (method_exists($storeEntity, 'setIsVisibleToCustomer')) {
+            // StoreBuilder fills unset bool properties with a random Faker value (not null), so only
+            // an EXPLICIT override may control this flag; otherwise the random roll would corrupt the
+            // shared, persistent DE/AT fixture rows that other tests assume are visible.
+            $isVisibleToCustomer = array_key_exists(StoreTransfer::IS_VISIBLE_TO_CUSTOMER, $storeOverride)
+                ? $storeOverride[StoreTransfer::IS_VISIBLE_TO_CUSTOMER]
+                : true;
+            $storeEntity->setIsVisibleToCustomer($isVisibleToCustomer);
+        }
+
         $storeEntity->save();
 
         $storeTransfer->setIdStore($storeEntity->getIdStore());

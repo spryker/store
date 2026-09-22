@@ -27,11 +27,20 @@ interface StoreFacadeInterface
      * Specification:
      * - Returns currently selected store transfer.
      * - Executes stack of {@link \Spryker\Zed\StoreExtension\Dependency\Plugin\StoreCollectionExpanderPluginInterface} plugins.
-     * - The current store is always available only in the gateway application.
+     * - With dynamic multi-store mode enabled, the current store is a per-request concept, not a global one: it is
+     *   only resolved for Backend Gateway calls, or for Back Office UI requests that carry an explicit "_store" query
+     *   parameter. Regular Back Office business logic (controllers, console commands, plugins outside those two
+     *   contexts) has no current store to read.
+     * - Throws {@link \Spryker\Zed\Store\Business\Model\Exception\CurrentStoreNotAvailableException} when dynamic
+     *   multi-store mode is enabled and this request has no resolvable store and $fallbackToDefault is false.
+     * - When $fallbackToDefault is true and no store is resolvable, returns the first available store instead of
+     *   throwing.
      *
      * @api
      *
      * @param bool $fallbackToDefault
+     *
+     * @throws \Spryker\Zed\Store\Business\Model\Exception\CurrentStoreNotAvailableException
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */

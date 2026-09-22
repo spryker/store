@@ -8,6 +8,7 @@
 namespace Spryker\Zed\Store\Persistence;
 
 use Generated\Shared\Transfer\StoreTransfer;
+use Orm\Zed\Store\Persistence\Map\SpyStoreTableMap;
 use Orm\Zed\Store\Persistence\SpyStore;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
@@ -21,6 +22,10 @@ class StoreEntityManager extends AbstractEntityManager implements StoreEntityMan
         $storeEntity = (new SpyStore())
             ->setName($storeTransfer->getNameOrFail());
 
+        if ($this->isVisibleToCustomerSupported()) {
+            $storeEntity->setIsVisibleToCustomer($storeTransfer->getIsVisibleToCustomer() ?? true);
+        }
+
         $storeEntity->save();
 
         $storeTransfer->setIdStore($storeEntity->getIdStore());
@@ -30,12 +35,22 @@ class StoreEntityManager extends AbstractEntityManager implements StoreEntityMan
 
     public function updateStore(StoreTransfer $storeTransfer): StoreTransfer
     {
-        $this->getFactory()
+        $storeQuery = $this->getFactory()
             ->createStoreQuery()
             ->requirePk($storeTransfer->getIdStoreOrFail())
-            ->setName($storeTransfer->getNameOrFail())
-            ->save();
+            ->setName($storeTransfer->getNameOrFail());
+
+        if ($storeTransfer->getIsVisibleToCustomer() !== null && $this->isVisibleToCustomerSupported()) {
+            $storeQuery->setIsVisibleToCustomer($storeTransfer->getIsVisibleToCustomer());
+        }
+
+        $storeQuery->save();
 
         return $storeTransfer;
+    }
+
+    protected function isVisibleToCustomerSupported(): bool
+    {
+        return defined(SpyStoreTableMap::class . '::COL_IS_VISIBLE_TO_CUSTOMER');
     }
 }

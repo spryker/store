@@ -31,4 +31,6 @@ interface StoreRepositoryInterface
      * @return array<string>
      */
     public function getStoreNamesByCriteria(StoreCriteriaTransfer $storeCriteriaTransfer): array;
+
+    public function isVisibleToCustomerSupported(): bool;
 }

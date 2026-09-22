@@ -11,6 +11,7 @@ use Spryker\Shared\Kernel\Store;
 use Spryker\Shared\Store\Dependency\Adapter\StoreToKernelStoreAdapter;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
+use Spryker\Zed\Store\Business\Model\Exception\CurrentStoreNotAvailableException;
 
 /**
  * @method \Spryker\Zed\Store\StoreConfig getConfig()
@@ -119,13 +120,29 @@ class StoreDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container->set(static::STORE_CURRENT, function (Container $container) {
             if (Store::isDynamicStoreMode()) {
-                return $container->getApplicationService(static::SERVICE_STORE);
+                return $this->getCurrentStoreFromApplicationService($container);
             }
 
             return $this->getStoreName();
         });
 
         return $container;
+    }
+
+    protected function getCurrentStoreFromApplicationService(Container $container): string
+    {
+        if (!$container->hasApplicationService(static::SERVICE_STORE)) {
+            throw new CurrentStoreNotAvailableException(
+                'No store is available in the current request context. With dynamic multi-store mode enabled, ' .
+                'the current store is not a global concept in the Back Office: it is only resolved for Backend ' .
+                'Gateway calls, or for Back Office UI requests that carry an explicit "_store" query parameter ' .
+                '(see BackofficeStoreApplicationPlugin / StoreBackendGatewayApplicationPlugin). This request has ' .
+                'neither, so there genuinely is no current store to return here. If this call site does not require ' .
+                'a specific store, use StoreFacade::getCurrentStore(true) to fall back to the first available store instead.',
+            );
+        }
+
+        return $container->getApplicationService(static::SERVICE_STORE);
     }
 
     protected function addDynamicStoreMode(Container $container): Container
