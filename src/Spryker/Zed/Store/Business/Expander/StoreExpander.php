@@ -29,6 +29,7 @@ class StoreExpander implements StoreExpanderInterface
     public function expandStore(StoreTransfer $storeTransfer): StoreTransfer
     {
         $idStore = $storeTransfer->getIdStore();
+        $isVisibleToCustomer = $storeTransfer->getIsVisibleToCustomer();
 
         $storeTransfer->fromArray(
             $this->sharedStoreReader->getStoreByName($storeTransfer->getNameOrFail())->toArray(),
@@ -36,6 +37,7 @@ class StoreExpander implements StoreExpanderInterface
         );
 
         $storeTransfer->setDefaultLocaleIsoCode(Store::getInstance()->getCurrentLocale());
+        $storeTransfer->setIsVisibleToCustomer($isVisibleToCustomer);
 
         return $storeTransfer->setIdStore($idStore);
     }
