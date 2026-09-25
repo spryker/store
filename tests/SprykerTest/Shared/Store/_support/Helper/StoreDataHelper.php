@@ -93,13 +93,36 @@ class StoreDataHelper extends Module
 
     public function getAllowedStore(): StoreTransfer
     {
-        $storeTransfers = $this->getStoreFacade()->getAllStores();
+        $storeTransfers = $this->getAllStores();
 
         if ($storeTransfers) {
             return $storeTransfers[0];
         }
 
         return new StoreTransfer();
+    }
+
+    /**
+     * @return array<\Generated\Shared\Transfer\StoreTransfer>
+     */
+    public function getAllStores(): array
+    {
+        return $this->getStoreFacade()->getAllStores();
+    }
+
+    public function getCurrentStore(): StoreTransfer
+    {
+        return $this->getStoreFacade()->getCurrentStore();
+    }
+
+    public function getCurrentStoreName(): string
+    {
+        return $this->getCurrentStore()->getNameOrFail();
+    }
+
+    public function getCurrentCurrencyCode(): string
+    {
+        return $this->getCurrentStore()->getDefaultCurrencyIsoCodeOrFail();
     }
 
     public function isDynamicStoreEnabled(): bool
